@@ -74,9 +74,13 @@
     });
   }
 
+  // Accepts both clean paths ("/about") and the old extensioned form
+  // ("/about.html"), so links, bookmarks, and manually-typed URLs of either
+  // shape resolve to the same page.
   function keyForPath(pathname) {
     const file = pathname.split('/').pop();
-    return file && file.length ? file : ROOT_KEY;
+    if (!file) return ROOT_KEY;
+    return file.includes('.') ? file : file + '.html';
   }
 
   async function ensureAssets(key) {
@@ -142,7 +146,10 @@
 
     let doc;
     try {
-      const res = await fetch(target.pathname, { credentials: 'same-origin' });
+      // Fetch the real file (key always has .html), not target.pathname —
+      // that keeps this working on a plain static server that doesn't
+      // rewrite clean URLs, in addition to Vercel where it does.
+      const res = await fetch(key, { credentials: 'same-origin' });
       if (!res.ok) throw new Error('HTTP ' + res.status);
       doc = new DOMParser().parseFromString(await res.text(), 'text/html');
     } catch (err) {
