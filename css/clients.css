@@ -1,0 +1,392 @@
+/* =========================================================
+   JD CAPITAL GROUP — CLIENTS PAGE
+   Light, white-based brand showcase: featured client spotlight,
+   a hospitality brand family, interactive filtering, and a
+   credibility section. Logos sit on soft-gray "matted" panels;
+   each hospitality card's hover reveal stays a deliberate dark
+   navy accent — a small, intentional contrast moment rather
+   than a page-level dark section.
+   ========================================================= */
+
+/* Archivo — a sharper, more structured grotesque than the site's default
+   Public Sans, used only on this page. Public Sans is a neutral,
+   humanist sans (soft, rounded terminals); Archivo is a tighter,
+   higher-contrast grotesque more associated with premium editorial and
+   corporate-finance branding, self-hosted the same way as the rest of
+   the site's fonts for a consistent zero-flicker load. */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: optional;
+  src: url('../assets/fonts/archivo.woff2') format('woff2');
+}
+
+body.clients-page {
+  background: var(--white);
+  color: var(--charcoal);
+}
+
+/* Scoped to <main> only — NOT to body — so the persistent header/footer
+   (see js/router.js and the note in style.css) never inherit this and
+   never visibly change font when you navigate to or from this page.
+   font-family is set directly here (not just the --font-sans variable)
+   so every descendant inherits Archivo even where a selector doesn't
+   explicitly reference var(--font-sans) itself. */
+body.clients-page main {
+  --font-sans: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* ---------- Page hero ---------- */
+.clients-hero {
+  position: relative;
+  padding: 180px 0 72px;
+  background: linear-gradient(160deg, #fbfaf7 0%, var(--soft-gray) 55%, #f1eee7 100%);
+  overflow: hidden;
+}
+.clients-hero .hero-bg { position: absolute; inset: 0; z-index: 0; }
+.clients-hero .hero-lines { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.3; }
+.clients-hero .hero-lines line { stroke: var(--gold); stroke-width: 1; }
+.clients-hero .hero-glow {
+  position: absolute;
+  top: -20%; right: -5%;
+  width: 55%; height: 140%;
+  background: radial-gradient(circle, rgba(182,144,63,0.14), transparent 70%);
+  filter: blur(40px);
+}
+.clients-hero .container { position: relative; z-index: 1; }
+.clients-hero-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(32px, 5vw, 54px);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--navy);
+  margin: 0 0 22px;
+  max-width: 780px;
+}
+
+/* ---------- Filter bar ---------- */
+.filter-bar {
+  position: relative;
+  z-index: 2;
+  border-bottom: 1px solid var(--gray-line);
+  background: var(--white);
+}
+.filter-bar-inner {
+  display: flex;
+  gap: 12px;
+  padding: 22px 32px;
+  flex-wrap: wrap;
+}
+.filter-tab {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--gray-mid);
+  background: transparent;
+  border: 1px solid var(--gray-line);
+  padding: 10px 22px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.filter-tab:hover { color: var(--navy); border-color: rgba(182,144,63,0.5); }
+.filter-tab.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--white);
+}
+
+/* ---------- Featured client ---------- */
+.featured-client-section { padding-top: 72px; }
+.featured-client-section.filtered-out,
+.hospitality-section.filtered-out { display: none; }
+
+.featured-client {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  background: var(--white);
+  border: 1px solid var(--gray-line);
+  border-top: 3px solid var(--gold);
+  border-radius: 6px;
+  box-shadow: 0 24px 60px rgba(24, 22, 20,0.07);
+  overflow: hidden;
+}
+
+.featured-client-logo {
+  background: var(--soft-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+}
+.featured-client-logo img {
+  max-width: 78%;
+  max-height: 240px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.featured-client-body {
+  padding: 52px;
+  background: var(--white);
+}
+.client-category {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.featured-client-body h2 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(26px, 3vw, 36px);
+  letter-spacing: -0.01em;
+  color: var(--navy);
+  margin: 0 0 18px;
+}
+.client-desc {
+  color: var(--gray-mid);
+  font-size: 15.5px;
+  max-width: 620px;
+  margin: 0 0 24px;
+}
+.client-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.client-tags span {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--navy);
+  background: rgba(182, 144, 63, 0.08);
+  border: 1px solid rgba(182, 144, 63, 0.3);
+  padding: 7px 14px;
+  border-radius: 20px;
+}
+
+.client-testimonial {
+  margin: 0 0 28px;
+  padding-left: 20px;
+  border-left: 3px solid var(--gold);
+  max-width: 620px;
+}
+.client-testimonial p {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--navy);
+  margin: 0 0 10px;
+}
+.client-testimonial cite {
+  display: block;
+  font-style: normal;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ---------- Hospitality client grid ---------- */
+.hospitality-section { position: relative; overflow: hidden; background: var(--soft-gray); }
+.hospitality-glow { top: 20%; left: -80px; width: 420px; height: 420px; }
+.hospitality-section .container { position: relative; z-index: 1; }
+
+.client-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.client-card {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--gray-line);
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(24, 22, 20,0.04);
+  transition: box-shadow var(--transition), border-color var(--transition);
+}
+.client-card:hover, .client-card.is-open {
+  box-shadow: 0 16px 32px rgba(24, 22, 20,0.1);
+  border-color: rgba(182, 144, 63, 0.4);
+}
+
+.client-card-logo {
+  position: relative;
+  height: 220px;
+  background: var(--soft-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+.client-card-logo img {
+  max-width: 62%;
+  max-height: 62%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Deliberate dark accent on hover — a small, transient contrast
+   moment against the page's light theme, not a static dark section. */
+.client-card-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 220px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(160deg, rgba(24, 22, 20,0.97) 0%, rgba(13, 11, 10,0.97) 100%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+.client-card:hover .client-card-overlay,
+.client-card.is-open .client-card-overlay,
+.client-card:focus-within .client-card-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+.client-card-overlay .client-category { color: var(--gold-light); margin-bottom: 8px; }
+.client-card-overlay h3 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.005em;
+  color: var(--white);
+  margin: 0 0 10px;
+}
+.client-card-overlay p {
+  font-size: 13.5px;
+  color: #c6cedb;
+  margin: 0 0 18px;
+  line-height: 1.55;
+}
+
+.client-card-footer {
+  padding: 18px 22px;
+  background: var(--white);
+  border-top: 1px solid var(--gray-line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.client-card-footer h3 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.005em;
+  color: var(--navy);
+  margin: 0;
+}
+.client-card-footer .client-category { margin: 0; }
+
+/* ---------- Support capabilities — one large flowing statement, not a
+   grid or list. Reads as a confident closing statement rather than
+   another content block. */
+.support-section {
+  position: relative;
+  overflow: hidden;
+  background: var(--white);
+  padding: 150px 0;
+  text-align: center;
+}
+.support-glow {
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 700px;
+  opacity: 0.5;
+}
+.support-section .container { position: relative; z-index: 1; }
+
+.support-eyebrow {
+  color: var(--gold);
+  margin: 0 0 28px;
+}
+
+.support-statement {
+  position: relative;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-style: italic;
+  font-size: clamp(22px, 2.7vw, 33px);
+  line-height: 1.65;
+  color: var(--navy);
+  max-width: 980px;
+  margin: 0 auto;
+}
+.support-quote-mark {
+  display: block;
+  font-style: normal;
+  font-size: 90px;
+  line-height: 0.4;
+  color: rgba(182, 144, 63, 0.25);
+  margin-bottom: 12px;
+}
+.support-statement .cap {
+  color: var(--gold);
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* ---------- Buttons (gold-on-dark variant, used inside the
+   dark hover overlay above) ---------- */
+.btn-outline-light {
+  background: transparent;
+  border-color: rgba(216, 184, 118, 0.5);
+  color: var(--gold-light);
+}
+.btn-outline-light:hover {
+  background: var(--gold-light);
+  color: var(--navy-deep);
+  border-color: var(--gold-light);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .featured-client { grid-template-columns: 1fr; }
+  .featured-client-logo { padding: 40px; }
+  .client-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .clients-hero { padding: 140px 0 48px; }
+  .featured-client-body { padding: 32px 24px; }
+  .client-grid { grid-template-columns: 1fr; }
+  .support-section { padding: 88px 0; }
+  .support-quote-mark { font-size: 60px; }
+  .filter-bar-inner { padding: 16px 24px; gap: 8px; }
+  .filter-tab { padding: 9px 16px; font-size: 12.5px; }
+  /* On touch devices, always show the overlay content below the logo
+     rather than relying on hover — keeps details visible on mobile. */
+  .client-card-overlay {
+    position: static;
+    height: auto;
+    opacity: 1;
+    pointer-events: auto;
+    background: var(--navy);
+  }
+  .client-card-logo { height: 180px; }
+  .client-card-footer { display: none; }
+}
