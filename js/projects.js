@@ -41,6 +41,21 @@ function initProjectsPage() {
         { src: 'assets/plymouth-roast/espresso.webp', label: 'Espresso Bar' },
         { src: 'assets/plymouth-roast/lounge.webp', label: 'Lounge Seating' }
       ]
+    },
+    'brickell-drive': {
+      name: 'Brickell Drive Waterfront Development',
+      images: [
+        { src: 'assets/brickell-drive/outside.png', label: 'Exterior Rendering' },
+        { src: 'assets/brickell-drive/pool.png', label: 'Pool & Entry Court' },
+        { src: 'assets/brickell-drive/chill.png', label: 'Outdoor Lounge' },
+        { src: 'assets/brickell-drive/living-room.png', label: 'Living Room' },
+        { src: 'assets/brickell-drive/living-room-2.png', label: 'Living Room, Alternate View' },
+        { src: 'assets/brickell-drive/kitchen.png', label: 'Kitchen' },
+        { src: 'assets/brickell-drive/bedroom.png', label: 'Primary Bedroom' },
+        { src: 'assets/brickell-drive/staircase.png', label: 'Staircase' },
+        { src: 'assets/brickell-drive/gym.png', label: 'Private Gym' },
+        { src: 'assets/brickell-drive/basketball-court.png', label: 'Basketball Court' }
+      ]
     }
   };
 
