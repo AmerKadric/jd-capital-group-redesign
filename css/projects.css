@@ -255,6 +255,20 @@ body.projects-page {
   object-fit: cover;
   display: block;
 }
+/* ---------- Single-video showcase (projects with one walkthrough
+   video instead of a photo set) — reuses .carousel/.carousel-frame
+   for the same premium border/shadow/radius treatment. Full native
+   dimensions, no cropping: width scales to the frame, height follows
+   the video's own aspect ratio. ---------- */
+.project-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+  box-shadow: 0 12px 32px rgba(24, 22, 20, 0.12);
+  background: #000;
+}
+
 .carousel-thumb:hover { opacity: 0.9; }
 .carousel-thumb.active {
   opacity: 1;
