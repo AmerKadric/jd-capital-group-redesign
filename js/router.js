@@ -160,7 +160,9 @@
     if (!swapDom(doc)) { window.location.href = url; return; }
 
     updateActiveNav(key);
-    if (push) history.pushState({ key }, '', target.pathname + target.hash);
+    // Intentionally drop target.hash here — the address bar stays on the
+    // clean page path even when the click also scrolls to a section.
+    if (push) history.pushState({ key }, '', target.pathname);
 
     try {
       await ensureAssets(key);
@@ -212,7 +214,8 @@
         if (el) {
           e.preventDefault();
           el.scrollIntoView({ behavior: 'smooth' });
-          history.pushState({ key: targetKey }, '', targetURL.pathname + targetURL.hash);
+          // No history entry here on purpose — the address bar stays clean
+          // instead of picking up the section's hash.
         }
       }
       return; // same page with no hash (or a missing hash target) — nothing to route
