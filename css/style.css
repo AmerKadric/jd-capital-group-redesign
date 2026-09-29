@@ -49,10 +49,8 @@
      through softly while keeping body text fully legible. */
   --wash: rgba(255, 255, 255, 0.86);
   --wash-gray: rgba(244, 245, 247, 0.88);
-  /* Inner-page hero: a light dark tint behind the (white) title on the left,
-     clear over the skyline on the right. */
-  --hero-scrim-inner:
-    linear-gradient(100deg, rgba(13,11,10,0.5) 0%, rgba(13,11,10,0.3) 48%, rgba(13,11,10,0) 80%);
+  /* Inner-page hero background: none, so the photo shows untinted. */
+  --hero-scrim-inner: transparent;
 
   --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   --font-sans: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -382,22 +380,17 @@ a { color: inherit; text-decoration: none; }
 }
 
 .hero-bg { position: absolute; inset: 0; z-index: 0; }
-/* A light dark tint on the left (headline) side, clear over the skyline on
-   the right; on desktop it fades into the section below at the bottom. */
+/* No tint over the photo (it shows exactly as provided); hero type relies
+   on its own text-shadow for legibility. On desktop the hero still fades
+   into the section below at the very bottom. */
 .hero-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(100deg, rgba(13,11,10,0.5) 0%, rgba(13,11,10,0.3) 34%, rgba(13,11,10,0) 60%);
 }
 @media (min-width: 1025px) {
   .hero-scrim {
-    background:
-      linear-gradient(100deg, rgba(13,11,10,0.5) 0%, rgba(13,11,10,0.3) 34%, rgba(13,11,10,0) 60%),
-      linear-gradient(180deg, rgba(255,255,255,0) 86%, var(--wash) 100%);
+    background: linear-gradient(180deg, rgba(255,255,255,0) 86%, var(--wash) 100%);
   }
-}
-@media (max-width: 1024px) {
-  .hero-scrim { background: rgba(13,11,10,0.4); }
 }
 .hero-lines {
   position: absolute; inset: 0;
