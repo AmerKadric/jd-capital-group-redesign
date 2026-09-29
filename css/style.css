@@ -1002,3 +1002,63 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 1024px) {
   .hero-visual { display: none; }
 }
+
+/* =========================================================
+   LEGIBILITY OVER THE BRIGHT PHOTO
+   The hero photo has no tint, so type carries its own contrast: a tight
+   dark shadow for crisp edges plus a wide soft one that darkens the sky
+   just behind the letters. Text only; the photo itself is untouched.
+   ========================================================= */
+.hero-title,
+.about-hero .about-hero-title,
+.project-hero .project-hero-title,
+.clients-hero .clients-hero-title {
+  text-shadow: 0 1px 2px rgba(13, 11, 10, 0.55), 0 2px 22px rgba(13, 11, 10, 0.55);
+}
+.hero-title .accent-text,
+.about-hero .about-hero-title .accent-text,
+.project-hero .project-hero-title .accent-text,
+.clients-hero .clients-hero-title .accent-text {
+  color: #f3d9a0; /* paler than --gold-light so it separates from the gold sky */
+  text-shadow: 0 1px 2px rgba(13, 11, 10, 0.7), 0 2px 24px rgba(13, 11, 10, 0.7);
+}
+.hero-sub,
+.about-hero .lead-text,
+.project-hero .lead-text,
+.clients-hero .lead-text,
+.hero-edge span,
+.hero .eyebrow,
+.about-hero .eyebrow,
+.project-hero .eyebrow,
+.clients-hero .eyebrow {
+  text-shadow: 0 1px 2px rgba(13, 11, 10, 0.75), 0 1px 14px rgba(13, 11, 10, 0.6);
+}
+.hero-sub,
+.about-hero .lead-text,
+.project-hero .lead-text,
+.clients-hero .lead-text { color: var(--white); }
+.hero-edge span { color: var(--white); }
+
+/* Transparent header: shadowed white type, and the JD mark goes white. */
+.site-header:not(.scrolled) .brand,
+.site-header:not(.scrolled) .main-nav a:not(.nav-cta) {
+  text-shadow: 0 1px 2px rgba(13, 11, 10, 0.6), 0 1px 12px rgba(13, 11, 10, 0.45);
+}
+.site-header:not(.scrolled) .brand-mark {
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.85);
+}
+@media (max-width: 980px) {
+  /* Slide-out panel is white: no shadow on its links. */
+  .site-header:not(.scrolled) .main-nav a:not(.nav-cta) { text-shadow: none; }
+}
+/* Current-page link goes pale gold and the small hero eyebrows go white:
+   the brand gold is too close to the sky (the underline keeps the gold). */
+@media (min-width: 981px) {
+  .site-header:not(.scrolled) .main-nav a.active,
+  .site-header:not(.scrolled) .main-nav a:not(.nav-cta):hover { color: #f3d9a0; }
+}
+.hero .eyebrow,
+.about-hero .eyebrow,
+.project-hero .eyebrow,
+.clients-hero .eyebrow { color: var(--white); }
