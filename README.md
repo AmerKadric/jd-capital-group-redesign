@@ -102,6 +102,12 @@ home) rather than `/about.html`. This works two ways at once:
 section on the homepage, but intentionally do **not** write `#why-us` / `#contact` / `#top` into
 the address bar — the URL always stays on the plain page path.
 
+**No first-visit flash.** A page's own CSS/JS finish loading *before* its content is swapped in,
+and the swap waits briefly (max ~0.6s) for the page's first few images, so nothing ever renders
+unstyled or pops in. To make that wait near-zero, the router also prefetches: each page's HTML and
+CSS/JS start loading on hover/touch of a link, and all pages are quietly warmed once the current page
+finishes loading.
+
 **If anything goes wrong** (an unknown page, a network failure, a browser too old for
 `fetch`/`DOMParser`), the router falls back to a completely normal full page load — it can never
 leave the site in a broken state.

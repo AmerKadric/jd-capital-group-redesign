@@ -90,6 +90,61 @@
     for (const src of (conf.trailingJs || [])) await loadJS(src);
   }
 
+  // ---- Prefetching ----
+  // Fetched page HTML, keyed by page, so a hover/touch (or the idle warm-up
+  // below) can start the request before the click and navigate() reuses it.
+  // Page CSS/JS get a <link rel="prefetch"> so they're in the HTTP cache
+  // without being applied to the current page.
+  const htmlCache = new Map();
+  const prefetchedAssets = new Set();
+
+  function fetchPage(key) {
+    if (!htmlCache.has(key)) {
+      const req = fetch(key, { credentials: 'same-origin' }).then(res => {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.text();
+      });
+      req.catch(() => htmlCache.delete(key)); // let a later attempt retry
+      htmlCache.set(key, req);
+    }
+    return htmlCache.get(key);
+  }
+
+  function prefetch(key) {
+    const conf = PAGES[key];
+    if (!conf || key === keyForPath(location.pathname)) return;
+    fetchPage(key).catch(() => {});
+    (conf.css || []).concat(conf.js || [], conf.trailingJs || []).forEach(href => {
+      if (loaded.has(href) || prefetchedAssets.has(href)) return;
+      prefetchedAssets.add(href);
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = href;
+      document.head.appendChild(link);
+    });
+  }
+
+  // Give the incoming page's first few images a brief head start so they're
+  // already painted when the content swaps in, rather than popping in after.
+  // Capped so a slow image never holds up navigation.
+  function preloadLeadImages(doc, limit = 4, maxWait = 600) {
+    const srcs = Array.from(doc.querySelectorAll('main img'))
+      .filter(img => img.getAttribute('loading') !== 'lazy')
+      .slice(0, limit)
+      .map(img => img.getAttribute('src'))
+      .filter(Boolean);
+    if (!srcs.length) return Promise.resolve();
+    const loads = srcs.map(src => new Promise(resolve => {
+      const img = new Image();
+      img.onload = img.onerror = resolve;
+      img.src = src;
+    }));
+    return Promise.race([
+      Promise.all(loads),
+      new Promise(resolve => setTimeout(resolve, maxWait))
+    ]);
+  }
+
   function runInits(key) {
     const conf = PAGES[key];
     if (!conf) return;
@@ -144,18 +199,26 @@
 
     if (!PAGES[key]) { window.location.href = url; return; }
 
+    // The page's CSS/JS load in parallel with its HTML, and both finish
+    // before anything is swapped in. (Swapping first let a first-time visit
+    // paint the new content unstyled for a moment: full-size images that
+    // then snapped into place.)
+    const assetsReady = ensureAssets(key).catch(err => {
+      console.error('[router] asset load failed:', err); // swap anyway; init with what loaded
+    });
+
     let doc;
     try {
       // Fetch the real file (key always has .html), not target.pathname —
       // that keeps this working on a plain static server that doesn't
       // rewrite clean URLs, in addition to Vercel where it does.
-      const res = await fetch(key, { credentials: 'same-origin' });
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      doc = new DOMParser().parseFromString(await res.text(), 'text/html');
+      doc = new DOMParser().parseFromString(await fetchPage(key), 'text/html');
     } catch (err) {
       window.location.href = url; // network/parse failure — fall back to a real navigation
       return;
     }
+
+    await Promise.all([assetsReady, preloadLeadImages(doc)]);
 
     if (!swapDom(doc)) { window.location.href = url; return; }
 
@@ -164,11 +227,6 @@
     // clean page path even when the click also scrolls to a section.
     if (push) history.pushState({ key }, '', target.pathname);
 
-    try {
-      await ensureAssets(key);
-    } catch (err) {
-      console.error('[router] asset load failed:', err); // content is already swapped; init with what loaded
-    }
     runInits(key);
 
     if (target.hash) {
@@ -225,6 +283,15 @@
     navigate(a.href, { push: true });
   });
 
+  // Start loading a page as soon as the visitor shows intent to open it.
+  function onIntent(e) {
+    const a = e.target.closest && e.target.closest('a');
+    if (isRoutable(a)) prefetch(keyForPath(new URL(a.href, location.href).pathname));
+  }
+  document.addEventListener('mouseover', onIntent, { passive: true });
+  document.addEventListener('touchstart', onIntent, { passive: true });
+  document.addEventListener('focusin', onIntent);
+
   window.addEventListener('popstate', () => {
     navigate(location.href, { push: false, isPopstate: true });
   });
@@ -235,6 +302,13 @@
     const key = keyForPath(location.pathname);
     try { await ensureAssets(key); } catch (err) { console.error('[router] boot asset load failed:', err); }
     runInits(key);
+
+    // Once this page has fully loaded, quietly warm the other pages (HTML +
+    // CSS/JS only, all small) so even a first click is instant.
+    const warm = () => Object.keys(PAGES).forEach(prefetch);
+    const whenIdle = () => ('requestIdleCallback' in window ? requestIdleCallback(warm) : setTimeout(warm, 1500));
+    if (document.readyState === 'complete') whenIdle();
+    else window.addEventListener('load', whenIdle, { once: true });
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', boot);
