@@ -49,10 +49,10 @@
      through softly while keeping body text fully legible. */
   --wash: rgba(255, 255, 255, 0.86);
   --wash-gray: rgba(244, 245, 247, 0.88);
-  /* Inner-page hero: washed on the left where the title sits, opening up
-     to the photo on the right. */
+  /* Inner-page hero: a light dark tint behind the (white) title on the left,
+     clear over the skyline on the right. */
   --hero-scrim-inner:
-    linear-gradient(100deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.5) 48%, rgba(255,255,255,0) 76%);
+    linear-gradient(100deg, rgba(13,11,10,0.5) 0%, rgba(13,11,10,0.3) 48%, rgba(13,11,10,0) 80%);
 
   --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   --font-sans: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -90,47 +90,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Detroit riverfront photo fixed behind every page. Fixed pseudo-elements
-   (rather than background-attachment: fixed) so it also stays put on iOS.
-   Heroes leave it mostly clear; every other section lays a --wash over it.
-   Both layers run under the header, which is transparent at the top of the page.
-
-   On desktop the whole photo is shown (contain, pinned right, so the fence
-   at the bottom stays in frame); whatever strip the window's shape leaves
-   uncovered is filled by a blurred copy underneath (body::before), which
-   lands under the hero's white wash on the left. On narrow screens a
-   contained wide photo would leave big empty bands, so it fills instead. */
-body::before,
-body::after {
+/* Detroit sunset skyline photo fixed behind every page. A fixed pseudo-
+   element (rather than background-attachment: fixed) so it also stays put
+   on iOS. It runs under the header, which is transparent at the top of the
+   page. Heroes show it at full strength with white type; every other
+   section lays a --wash over it. */
+body::before {
   content: "";
   position: fixed;
-  pointer-events: none;
-  background-image: url('../assets/graphics/detroit-riverfront.webp');
-  background-repeat: no-repeat;
-}
-body::before {
-  inset: -40px; /* overhang so the blur doesn't fade at the edges */
-  z-index: -3;
-  background-size: cover;
-  background-position: center;
-  filter: blur(24px);
-}
-body::after {
   inset: 0;
   z-index: -2;
-  background-size: contain;
-  background-position: right top;
-  /* Feather the photo's left edge into the blurred fill so there's no hard
-     seam. The photo's left edge sits at 100vw minus its rendered width
-     (visible height x 1672/941 aspect); when the photo spans the full width
-     that stop goes negative and the mask is simply solid. */
-  --photo-left: calc(100vw - 100vh * 1.7768);
-  -webkit-mask-image: linear-gradient(to right, transparent var(--photo-left), #000 calc(var(--photo-left) + 220px));
-  mask-image: linear-gradient(to right, transparent var(--photo-left), #000 calc(var(--photo-left) + 220px));
-}
-@media (max-width: 900px) {
-  body::before { display: none; }
-  body::after { background-size: cover; background-position: 60% top; -webkit-mask-image: none; mask-image: none; }
+  pointer-events: none;
+  background: url('../assets/graphics/detroit-sunset.webp') 62% 60% / cover no-repeat;
 }
 main > section { background-color: var(--wash); }
 
@@ -361,8 +332,9 @@ a { color: inherit; text-decoration: none; }
   background: var(--gold);
   color: var(--white) !important;
 }
-/* While the header is transparent over the bright sky, a gold outline
-   washes out, so the button is filled until the header turns white. */
+/* While the header is transparent over the photo, the button is filled
+   gold so it stands out; it returns to the outline once the header turns
+   white. */
 .site-header:not(.scrolled) .nav-cta {
   background: var(--gold);
   color: var(--white) !important;
@@ -387,6 +359,15 @@ a { color: inherit; text-decoration: none; }
   transition: all var(--transition);
 }
 
+/* Transparent header over the dark photo: white brand, links and menu
+   icon. (Links only on desktop; below 981px they live in the white
+   slide-out panel and stay navy. The open menu icon sits on that panel.) */
+.site-header:not(.scrolled) .brand { color: var(--white); }
+.site-header:not(.scrolled) .nav-toggle:not(.open) span { background: var(--white); }
+@media (min-width: 981px) {
+  .site-header:not(.scrolled) .main-nav a:not(.nav-cta):not(.active):not(:hover) { color: var(--white); }
+}
+
 /* =========================================================
    HERO
    ========================================================= */
@@ -401,19 +382,22 @@ a { color: inherit; text-decoration: none; }
 }
 
 .hero-bg { position: absolute; inset: 0; z-index: 0; }
-/* Washes the left (headline) side, leaves the skyline clear on the right,
-   and fades into the section below at the bottom. */
+/* A light dark tint on the left (headline) side, clear over the skyline on
+   the right; on desktop it fades into the section below at the bottom. */
 .hero-scrim {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(100deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.42) 30%, rgba(255,255,255,0) 52%),
-    linear-gradient(180deg, rgba(255,255,255,0) 88%, var(--wash) 100%);
+  background: linear-gradient(100deg, rgba(13,11,10,0.5) 0%, rgba(13,11,10,0.3) 34%, rgba(13,11,10,0) 60%);
 }
-@media (max-width: 900px) {
+@media (min-width: 1025px) {
   .hero-scrim {
-    background: linear-gradient(180deg, rgba(255,255,255,0.62) 0%, rgba(255,255,255,0.5) 60%, var(--wash) 100%);
+    background:
+      linear-gradient(100deg, rgba(13,11,10,0.5) 0%, rgba(13,11,10,0.3) 34%, rgba(13,11,10,0) 60%),
+      linear-gradient(180deg, rgba(255,255,255,0) 86%, var(--wash) 100%);
   }
+}
+@media (max-width: 1024px) {
+  .hero-scrim { background: rgba(13,11,10,0.4); }
 }
 .hero-lines {
   position: absolute; inset: 0;
@@ -503,16 +487,12 @@ a { color: inherit; text-decoration: none; }
   border-right: 1px solid var(--gold);
   padding-right: 18px;
 }
-/* On desktop it sits over the dark towers on the unwashed side of the
-   skyline photo, so it reads light-on-dark instead of the left caption's
-   gray. Below 1025px it drops beneath the text onto the wash and keeps
-   the default gray. */
-@media (min-width: 1025px) {
-  .hero-edge-right span {
-    color: var(--white);
-    text-shadow: 0 1px 6px rgba(13, 11, 10, 0.75);
-  }
+/* Both caption columns sit on the dark photo: light type. */
+.hero-edge span {
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 1px 6px rgba(13, 11, 10, 0.6);
 }
+
 
 /* ---------- Hero photo carousel ---------- */
 .hero-visual { position: relative; }
@@ -987,14 +967,39 @@ a { color: inherit; text-decoration: none; }
    the skyline photo it only hazes the image, so it's switched off. */
 .hero-glow { display: none; }
 
-/* Hero intro copy now sits over the photo rather than a white wash, so it
-   gets a darker tone and a soft white halo to stay readable. */
+/* Hero type sits directly on the dark sunset photo, so it's white (the
+   gold accent line lightens to --gold-light), with a soft shadow for the
+   brighter patches of sky. Inner-page selectors are doubled up so they
+   outrank each page's own stylesheet, which loads after this one. */
+.hero-title,
+.about-hero .about-hero-title,
+.project-hero .project-hero-title,
+.clients-hero .clients-hero-title {
+  color: var(--white);
+  text-shadow: 0 2px 18px rgba(13, 11, 10, 0.35);
+}
+.hero-title .accent-text,
+.about-hero .about-hero-title .accent-text,
+.project-hero .project-hero-title .accent-text,
+.clients-hero .clients-hero-title .accent-text { color: var(--gold-light); }
 .hero-sub,
 .about-hero .lead-text,
 .project-hero .lead-text,
 .clients-hero .lead-text {
-  color: var(--charcoal);
-  text-shadow: 0 0 14px rgba(255, 255, 255, 0.9), 0 0 4px rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 10px rgba(13, 11, 10, 0.5);
+}
+.hero .eyebrow,
+.about-hero .eyebrow,
+.project-hero .eyebrow,
+.clients-hero .eyebrow { color: var(--gold-light); }
+.hero .btn-ghost {
+  border-color: rgba(255, 255, 255, 0.75);
+  color: var(--white);
+}
+.hero .btn-ghost:hover {
+  border-color: var(--gold-light);
+  color: var(--gold-light);
 }
 
 /* TEMPORARY: home hero carousel hidden to preview the skyline on its own.
