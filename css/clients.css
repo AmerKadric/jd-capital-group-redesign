@@ -42,7 +42,7 @@ body.clients-page main {
 .clients-hero {
   position: relative;
   padding: 180px 0 72px;
-  background: linear-gradient(160deg, #fbfaf7 0%, var(--soft-gray) 55%, #f1eee7 100%);
+  background: var(--hero-scrim-inner);
   overflow: hidden;
 }
 .clients-hero .hero-bg { position: absolute; inset: 0; z-index: 0; }
@@ -201,7 +201,7 @@ body.clients-page main {
 }
 
 /* ---------- Hospitality client grid ---------- */
-.hospitality-section { position: relative; overflow: hidden; background: var(--soft-gray); }
+.hospitality-section { position: relative; overflow: hidden; background: var(--wash-gray); }
 .hospitality-glow { top: 20%; left: -80px; width: 420px; height: 420px; }
 .hospitality-section .container { position: relative; z-index: 1; }
 
@@ -306,7 +306,7 @@ body.clients-page main {
 .support-section {
   position: relative;
   overflow: hidden;
-  background: var(--white);
+  background: var(--wash);
   padding: 150px 0;
   text-align: center;
 }

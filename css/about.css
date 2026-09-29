@@ -12,7 +12,7 @@ body.about-page {
 .about-hero {
   position: relative;
   padding: 180px 0 88px;
-  background: linear-gradient(160deg, #fbfaf7 0%, var(--soft-gray) 55%, #f1eee7 100%);
+  background: var(--hero-scrim-inner);
   overflow: hidden;
 }
 .about-hero .hero-bg { position: absolute; inset: 0; z-index: 0; }
@@ -37,7 +37,7 @@ body.about-page {
 }
 
 /* ---------- Mission ---------- */
-.mission-section { position: relative; overflow: hidden; background: var(--soft-gray); }
+.mission-section { position: relative; overflow: hidden; background: var(--wash-gray); }
 .mission-glow { top: -60px; left: -60px; width: 400px; height: 400px; }
 .mission-grid {
   position: relative;
@@ -82,7 +82,7 @@ body.about-page {
 /* ---------- Founder ---------- */
 .founder-section {
   position: relative;
-  background: var(--white);
+  background: var(--wash);
 }
 .founder-section-clip {
   position: absolute;

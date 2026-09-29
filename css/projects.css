@@ -18,7 +18,7 @@ body.projects-page {
 .project-hero {
   position: relative;
   padding: 180px 0 80px;
-  background: linear-gradient(160deg, #fbfaf7 0%, var(--soft-gray) 55%, #f1eee7 100%);
+  background: var(--hero-scrim-inner);
   overflow: hidden;
 }
 .project-hero .hero-bg { position: absolute; inset: 0; z-index: 0; }
@@ -47,7 +47,7 @@ body.projects-page {
   position: relative;
   padding: 100px 0;
 }
-.case-study:nth-of-type(even) { background: var(--soft-gray); }
+.case-study:nth-of-type(even) { background: var(--wash-gray); }
 
 .case-head {
   max-width: 720px;

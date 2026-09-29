@@ -49,7 +49,7 @@ JD-Capital-Group-Redesign/
     ├── fonts/                    Self-hosted variable fonts (Public Sans, Source Serif 4) — see "Typography"
     ├── favicon/                  Browser tab icon (gold "JD" mark), multiple sizes
     ├── team/jesse.avif           Founder portrait
-    ├── graphics/                 Vector skyline + Detroit skyline photo (background depth layers)
+    ├── graphics/                 detroit-riverfront.webp (site-wide fixed background photo), vector skyline
     ├── clients/                  Client logos (Lady Jane's, the three Roast brands)
     ├── lady-janes/                Lady Jane's project photography
     ├── birmingham-roast/         Birmingham Roast photography
@@ -64,6 +64,11 @@ recoloring, or AI enhancement.
 
 ## Design system
 
+- **Background:** the Detroit riverfront photo (`assets/graphics/detroit-riverfront.webp`) is fixed
+  behind every page via `body::before` in `css/style.css`. Page heroes show it clearly (washed
+  white on the headline side only); every other section sits on a translucent `--wash` /
+  `--wash-gray` fill so it shows through softly. Change those two tokens to make the photo
+  stronger or fainter site-wide.
 - **Palette:** white/soft-gray backgrounds, navy/charcoal text, gold (`#b6903f`) and gold-light
   (`#d8b876`) accents. The footer and the Projects lightbox/video are the only intentionally dark
   surfaces on the site — everything else is light.

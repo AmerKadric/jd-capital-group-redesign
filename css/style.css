@@ -45,6 +45,15 @@
   --gold: #b6903f;
   --gold-light: #d8b876;
 
+  /* Translucent section fills that let the fixed skyline photo show
+     through softly while keeping body text fully legible. */
+  --wash: rgba(255, 255, 255, 0.86);
+  --wash-gray: rgba(244, 245, 247, 0.88);
+  /* Inner-page hero: washed on the left where the title sits, opening up
+     to the photo on the right. */
+  --hero-scrim-inner:
+    linear-gradient(100deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.74) 45%, rgba(255,255,255,0.28) 100%);
+
   --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   --font-sans: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
@@ -80,6 +89,19 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
+
+/* Detroit riverfront photo fixed behind every page. A fixed pseudo-element
+   (rather than background-attachment: fixed) so it also stays put on iOS.
+   Heroes leave it mostly clear; every other section lays a --wash over it. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background: url('../assets/graphics/detroit-riverfront.webp') 60% center / cover no-repeat;
+}
+main > section { background-color: var(--wash); }
 
 img { max-width: 100%; display: block; }
 
@@ -330,18 +352,25 @@ a { color: inherit; text-decoration: none; }
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(160deg, #fbfaf7 0%, var(--soft-gray) 55%, #f1eee7 100%);
+  background: transparent;
   overflow: hidden;
   padding-top: 120px;
 }
 
 .hero-bg { position: absolute; inset: 0; z-index: 0; }
+/* Washes the left (headline) side, leaves the skyline clear on the right,
+   and fades into the section below at the bottom. */
 .hero-scrim {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(100deg, rgba(255,255,255,0.94) 0%, rgba(251,250,247,0.85) 38%, rgba(244,245,247,0.6) 68%, rgba(244,245,247,0.8) 100%),
-    linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(244,245,247,0.55) 100%);
+    linear-gradient(100deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.72) 32%, rgba(255,255,255,0.18) 62%, rgba(255,255,255,0.05) 100%),
+    linear-gradient(180deg, rgba(255,255,255,0) 70%, var(--wash) 100%);
+}
+@media (max-width: 900px) {
+  .hero-scrim {
+    background: linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.7) 60%, var(--wash) 100%);
+  }
 }
 .hero-lines {
   position: absolute; inset: 0;
@@ -608,7 +637,7 @@ a { color: inherit; text-decoration: none; }
 .why-us-section {
   position: relative;
   overflow: hidden;
-  background: var(--soft-gray);
+  background: var(--wash-gray);
 }
 .why-us-section .container { position: relative; z-index: 1; }
 .why-us-glow { top: -60px; right: 10%; width: 380px; height: 380px; }
@@ -659,7 +688,7 @@ a { color: inherit; text-decoration: none; }
 .contact-section {
   position: relative;
   overflow: hidden;
-  background: var(--white);
+  background: var(--wash);
   border-top: 1px solid var(--gray-line);
 }
 .contact-grid {
