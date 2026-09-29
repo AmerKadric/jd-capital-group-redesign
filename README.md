@@ -103,11 +103,15 @@ leave the site in a broken state.
 
 ## Contact form
 
-The homepage contact form (`#contactForm` in `index.html`, handled in `js/main.js`) opens the
-visitor's email client with a pre-filled message via `mailto:jesse@jdcapitalgrp.com` — this works
-with zero backend/setup. If you want submissions to land somewhere more seamless later (a database,
-a Slack notification, an autoresponder), swap the `submit` handler for a form service like
-Formspree/Basin, or a real backend endpoint.
+The homepage "Schedule a Consultation" form (`#contactForm` in `index.html`, handled in
+`js/main.js`) sends inquiries straight to Jesse's inbox through [Web3Forms](https://web3forms.com),
+a free form-to-email service — no backend, and the visitor's email client never opens. The reply-to
+is set to the visitor's address, so hitting Reply answers them directly.
+
+The Web3Forms access key goes in the form's `data-access-key` attribute. It's designed to be public,
+so it's safe in the HTML. If the attribute is empty, the form falls back to opening the visitor's
+email client via `mailto:jesse@jdcapitalgrp.com`. To change which inbox receives inquiries, create a
+new key for that address at web3forms.com and swap it in.
 
 ## Adding or updating content
 

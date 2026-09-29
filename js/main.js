@@ -91,26 +91,63 @@ function initHomeContent() {
     start();
   }
 
-  // ---- Contact form (static demo — mailto-based, matches the site's
-  // no-backend booking flow elsewhere) ----
+  // ---- Contact form ----
+  // Sends straight to Jesse's inbox through Web3Forms (the public access key
+  // lives in the form's data-access-key attribute). Without a key, falls back
+  // to opening the visitor's email client so the form never dead-ends.
   const contactForm = document.getElementById('contactForm');
   const formNote = document.getElementById('formNote');
 
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const defaultNote = formNote.textContent;
+
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
       const company = document.getElementById('company').value.trim();
       const message = document.getElementById('message').value.trim();
+      const accessKey = contactForm.dataset.accessKey;
 
-      const subject = encodeURIComponent(`Consultation Request from ${name}`);
-      const body = encodeURIComponent(
-        `Name: ${name}\nEmail: ${email}\nCompany: ${company}\n\nMessage:\n${message}`
-      );
+      if (!accessKey) {
+        const subject = encodeURIComponent(`Consultation Request from ${name}`);
+        const body = encodeURIComponent(
+          `Name: ${name}\nEmail: ${email}\nCompany: ${company}\n\nMessage:\n${message}`
+        );
+        window.location.href = `mailto:jesse@jdcapitalgrp.com?subject=${subject}&body=${body}`;
+        formNote.textContent = 'Opening your email client to send this inquiry...';
+        return;
+      }
 
-      window.location.href = `mailto:jesse@jdcapitalgrp.com?subject=${subject}&body=${body}`;
-      formNote.textContent = 'Opening your email client to send this inquiry...';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      formNote.textContent = defaultNote;
+
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: accessKey,
+            subject: `Consultation Request from ${name}`,
+            from_name: 'JD Capital Group Website',
+            replyto: email,
+            botcheck: contactForm.elements.botcheck.checked,
+            name, email, company, message,
+          }),
+        });
+        const result = await res.json();
+        if (!res.ok || !result.success) throw new Error(result.message);
+
+        contactForm.reset();
+        formNote.textContent = 'Thank you — your inquiry has been sent. We typically respond within one business day.';
+      } catch (err) {
+        formNote.textContent = 'Sorry, something went wrong sending your inquiry. Please email jesse@jdcapitalgrp.com directly.';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Inquiry';
+      }
     });
   }
 }
