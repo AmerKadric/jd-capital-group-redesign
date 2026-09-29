@@ -52,7 +52,7 @@
   /* Inner-page hero: washed on the left where the title sits, opening up
      to the photo on the right. */
   --hero-scrim-inner:
-    linear-gradient(100deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.8) 48%, rgba(255,255,255,0) 76%);
+    linear-gradient(100deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.5) 48%, rgba(255,255,255,0) 76%);
 
   --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   --font-sans: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -120,10 +120,17 @@ body::after {
   z-index: -2;
   background-size: contain;
   background-position: right top;
+  /* Feather the photo's left edge into the blurred fill so there's no hard
+     seam. The photo's left edge sits at 100vw minus its rendered width
+     (visible height x 1672/941 aspect); when the photo spans the full width
+     that stop goes negative and the mask is simply solid. */
+  --photo-left: calc(100vw - (100vh - 89px) * 1.7768);
+  -webkit-mask-image: linear-gradient(to right, transparent var(--photo-left), #000 calc(var(--photo-left) + 220px));
+  mask-image: linear-gradient(to right, transparent var(--photo-left), #000 calc(var(--photo-left) + 220px));
 }
 @media (max-width: 900px) {
   body::before { display: none; }
-  body::after { background-size: cover; background-position: 60% top; }
+  body::after { background-size: cover; background-position: 60% top; -webkit-mask-image: none; mask-image: none; }
 }
 main > section { background-color: var(--wash); }
 
@@ -388,12 +395,12 @@ a { color: inherit; text-decoration: none; }
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(100deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 30%, rgba(255,255,255,0) 52%),
+    linear-gradient(100deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.42) 30%, rgba(255,255,255,0) 52%),
     linear-gradient(180deg, rgba(255,255,255,0) 88%, var(--wash) 100%);
 }
 @media (max-width: 900px) {
   .hero-scrim {
-    background: linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.7) 60%, var(--wash) 100%);
+    background: linear-gradient(180deg, rgba(255,255,255,0.62) 0%, rgba(255,255,255,0.5) 60%, var(--wash) 100%);
   }
 }
 .hero-lines {
@@ -482,12 +489,13 @@ a { color: inherit; text-decoration: none; }
   align-items: flex-end;
   text-align: right;
   border-right: 1px solid var(--gold);
-  padding: 14px 18px 14px 16px;
-  /* Sits over the unwashed (dark-tower) side of the skyline photo, so it
-     gets its own frosted backing to stay legible. */
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(6px);
-  border-radius: 3px 0 0 3px;
+  padding-right: 18px;
+}
+/* Sits over the dark towers on the unwashed side of the skyline photo, so
+   it reads light-on-dark instead of the left caption's gray. */
+.hero-edge-right span {
+  color: var(--white);
+  text-shadow: 0 1px 6px rgba(13, 11, 10, 0.75);
 }
 
 /* ---------- Hero photo carousel ---------- */
@@ -962,3 +970,13 @@ a { color: inherit; text-decoration: none; }
 /* The heroes' gold glow blob was ambient depth for a plain background; over
    the skyline photo it only hazes the image, so it's switched off. */
 .hero-glow { display: none; }
+
+/* Hero intro copy now sits over the photo rather than a white wash, so it
+   gets a darker tone and a soft white halo to stay readable. */
+.hero-sub,
+.about-hero .lead-text,
+.project-hero .lead-text,
+.clients-hero .lead-text {
+  color: var(--charcoal);
+  text-shadow: 0 0 14px rgba(255, 255, 255, 0.9), 0 0 4px rgba(255, 255, 255, 0.7);
+}
