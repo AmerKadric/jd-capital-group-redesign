@@ -93,7 +93,7 @@ body {
 /* Detroit riverfront photo fixed behind every page. Fixed pseudo-elements
    (rather than background-attachment: fixed) so it also stays put on iOS.
    Heroes leave it mostly clear; every other section lays a --wash over it.
-   Both layers start below the fixed header so the tower tops aren't hidden.
+   Both layers run under the header, which is transparent at the top of the page.
 
    On desktop the whole photo is shown (contain, pinned right, so the fence
    at the bottom stays in frame); whatever strip the window's shape leaves
@@ -109,14 +109,14 @@ body::after {
   background-repeat: no-repeat;
 }
 body::before {
-  inset: 89px -40px -40px; /* overhang so the blur doesn't fade at the edges */
+  inset: -40px; /* overhang so the blur doesn't fade at the edges */
   z-index: -3;
   background-size: cover;
   background-position: center;
   filter: blur(24px);
 }
 body::after {
-  inset: 89px 0 0;
+  inset: 0;
   z-index: -2;
   background-size: contain;
   background-position: right top;
@@ -124,7 +124,7 @@ body::after {
      seam. The photo's left edge sits at 100vw minus its rendered width
      (visible height x 1672/941 aspect); when the photo spans the full width
      that stop goes negative and the mask is simply solid. */
-  --photo-left: calc(100vw - (100vh - 89px) * 1.7768);
+  --photo-left: calc(100vw - 100vh * 1.7768);
   -webkit-mask-image: linear-gradient(to right, transparent var(--photo-left), #000 calc(var(--photo-left) + 220px));
   mask-image: linear-gradient(to right, transparent var(--photo-left), #000 calc(var(--photo-left) + 220px));
 }
@@ -281,13 +281,15 @@ a { color: inherit; text-decoration: none; }
   z-index: 900;
   padding: 24px 0;
   transition: all var(--transition);
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(10px);
+  /* Transparent at the top of the page so the skyline photo runs up behind
+     the nav; turns solid white once scrolled (.scrolled, set in main.js). */
+  background: transparent;
   border-bottom: 1px solid transparent;
 }
 .site-header.scrolled {
   padding: 14px 0;
   background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--gray-line);
   box-shadow: 0 4px 24px rgba(24, 22, 20, 0.06);
 }
@@ -358,6 +360,16 @@ a { color: inherit; text-decoration: none; }
 .nav-cta:hover {
   background: var(--gold);
   color: var(--white) !important;
+}
+/* While the header is transparent over the bright sky, a gold outline
+   washes out, so the button is filled until the header turns white. */
+.site-header:not(.scrolled) .nav-cta {
+  background: var(--gold);
+  color: var(--white) !important;
+}
+.site-header:not(.scrolled) .nav-cta:hover {
+  background: var(--navy);
+  border-color: var(--navy);
 }
 
 .nav-toggle {
@@ -491,11 +503,15 @@ a { color: inherit; text-decoration: none; }
   border-right: 1px solid var(--gold);
   padding-right: 18px;
 }
-/* Sits over the dark towers on the unwashed side of the skyline photo, so
-   it reads light-on-dark instead of the left caption's gray. */
-.hero-edge-right span {
-  color: var(--white);
-  text-shadow: 0 1px 6px rgba(13, 11, 10, 0.75);
+/* On desktop it sits over the dark towers on the unwashed side of the
+   skyline photo, so it reads light-on-dark instead of the left caption's
+   gray. Below 1025px it drops beneath the text onto the wash and keeps
+   the default gray. */
+@media (min-width: 1025px) {
+  .hero-edge-right span {
+    color: var(--white);
+    text-shadow: 0 1px 6px rgba(13, 11, 10, 0.75);
+  }
 }
 
 /* ---------- Hero photo carousel ---------- */
@@ -979,4 +995,12 @@ a { color: inherit; text-decoration: none; }
 .clients-hero .lead-text {
   color: var(--charcoal);
   text-shadow: 0 0 14px rgba(255, 255, 255, 0.9), 0 0 4px rgba(255, 255, 255, 0.7);
+}
+
+/* TEMPORARY: home hero carousel hidden to preview the skyline on its own.
+   Delete this block to bring the rotating photos back. visibility (not
+   display) keeps its grid column on desktop so the layout doesn't shift. */
+.hero-visual { visibility: hidden; }
+@media (max-width: 1024px) {
+  .hero-visual { display: none; }
 }
