@@ -356,6 +356,17 @@ body.clients-page main {
   border-radius: 4px;
   padding: 26px 26px 24px;
   box-shadow: 0 10px 28px rgba(24, 22, 20, 0.05);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+/* Hover: the card grows slightly and lifts, with a deeper shadow. */
+.support-item:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 22px 44px rgba(24, 22, 20, 0.12);
+  border-color: rgba(182, 144, 63, 0.45);
+  border-top-color: var(--gold);
+}
+@media (prefers-reduced-motion: reduce) {
+  .support-item, .support-item:hover { transition: none; transform: none; }
 }
 .support-item h3 {
   font-family: var(--font-serif);
