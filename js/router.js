@@ -199,7 +199,7 @@
     return true;
   }
 
-  async function navigate(url, { push = true, isPopstate = false } = {}) {
+  async function navigate(url, { push = true } = {}) {
     const target = new URL(url, location.href);
     const key = keyForPath(target.pathname);
 
@@ -236,8 +236,12 @@
     runInits(key);
 
     if (target.hash) {
+      // Land directly on the section of the newly swapped-in page. A smooth
+      // scroll here would animate from wherever the previous page was
+      // scrolled to, which reads as a jolt rather than a navigation.
+      // ('instant', not 'auto': html has scroll-behavior: smooth.)
       const el = document.querySelector(target.hash);
-      if (el) el.scrollIntoView({ behavior: isPopstate ? 'auto' : 'smooth' });
+      if (el) el.scrollIntoView({ behavior: 'instant' });
     } else {
       window.scrollTo(0, 0);
     }
@@ -299,7 +303,7 @@
   document.addEventListener('focusin', onIntent);
 
   window.addEventListener('popstate', () => {
-    navigate(location.href, { push: false, isPopstate: true });
+    navigate(location.href, { push: false });
   });
 
   // Run the current (hard-loaded) page's own content init exactly once,

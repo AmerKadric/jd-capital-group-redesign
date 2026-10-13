@@ -623,39 +623,84 @@ a { color: inherit; text-decoration: none; }
    SELECTED WORK TEASER
    ========================================================= */
 .work-teaser {
-  background: var(--white);
+  background: var(--wash);
   border-top: 1px solid var(--gray-line);
   border-bottom: 1px solid var(--gray-line);
-  padding: 48px 0;
+  padding: 88px 0 96px;
 }
-.work-teaser-inner {
+.work-teaser-head {
   display: flex;
-  align-items: center;
-  gap: 40px;
-  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 44px;
 }
-.work-teaser-text { flex: 1; min-width: 240px; }
-.work-teaser-text .section-eyebrow { margin-bottom: 10px; }
-.work-teaser-text h2 {
-  font-family: var(--font-serif);
-  font-size: 24px;
-  color: var(--navy);
-  margin: 0;
-  font-weight: 600;
+.work-teaser-head .section-title { margin: 0; max-width: 620px; }
+.work-teaser-all { flex-shrink: 0; }
+
+.work-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
 }
-.work-teaser-thumbs {
+.work-card {
   display: flex;
-  gap: 10px;
-}
-.work-teaser-thumbs img {
-  width: 84px; height: 84px;
-  object-fit: cover;
-  border-radius: 3px;
+  flex-direction: column;
+  background: var(--white);
   border: 1px solid var(--gray-line);
-  transition: filter var(--transition);
-  filter: grayscale(20%);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(24, 22, 20, 0.06);
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
-.work-teaser-thumbs:hover img { filter: grayscale(0%); }
+.work-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 20px 48px rgba(24, 22, 20, 0.12);
+}
+.work-card-img {
+  aspect-ratio: 4 / 3;
+  background: var(--soft-gray);
+  overflow: hidden;
+}
+.work-card-img img { width: 100%; height: 100%; object-fit: cover; }
+.work-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 24px 26px 26px;
+}
+.work-card-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.work-card h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.25;
+  color: var(--navy);
+  margin: 0 0 10px;
+}
+.work-card p {
+  color: var(--gray-mid);
+  font-size: 14.5px;
+  line-height: 1.6;
+  margin: 0 0 18px;
+}
+.work-card-link {
+  margin-top: auto;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--navy);
+  transition: color var(--transition);
+}
+.work-card:hover .work-card-link { color: var(--gold); }
 
 /* =========================================================
    WHY US
@@ -898,7 +943,6 @@ a { color: inherit; text-decoration: none; }
 
 @media (max-width: 1024px) {
   .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-  .work-teaser-inner { justify-content: center; text-align: center; }
 
   /* Photo carousel drops below the text column, content-first; edge
      captions reappear as a two-up row beneath everything. */
@@ -953,7 +997,6 @@ a { color: inherit; text-decoration: none; }
   .contact-form { padding: 32px 24px; }
   .contact-map-frame { padding: 8px; border-width: 2px; }
   .contact-map { height: 300px; min-height: 0; }
-  .work-teaser-inner { flex-direction: column; }
 }
 
 /* The heroes' gold glow blob was ambient depth for a plain background; over
@@ -1121,3 +1164,17 @@ a { color: inherit; text-decoration: none; }
 /* Selected Work sits directly above Contact on the homepage; drop Contact's
    top rule so the two borders don't stack into a double line. */
 .work-teaser + .contact-section { border-top: none; }
+
+/* Selected Work cards: 3-up on desktop, stacked on narrow screens. */
+@media (max-width: 1024px) {
+  .work-cards { grid-template-columns: 1fr 1fr; }
+  .work-cards .work-card:last-child { grid-column: 1 / -1; }
+  .work-cards .work-card:last-child .work-card-img { aspect-ratio: 16 / 7; }
+}
+@media (max-width: 680px) {
+  .work-teaser { padding: 64px 0 72px; }
+  .work-teaser-head { flex-direction: column; align-items: flex-start; gap: 20px; margin-bottom: 32px; }
+  .work-cards { grid-template-columns: 1fr; gap: 22px; }
+  .work-cards .work-card:last-child { grid-column: auto; }
+  .work-cards .work-card:last-child .work-card-img { aspect-ratio: 4 / 3; }
+}

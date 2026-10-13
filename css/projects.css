@@ -411,3 +411,8 @@ body.projects-page {
   .lightbox-close { top: 16px; right: 16px; width: 38px; height: 38px; }
   .lightbox-meta { flex-direction: column; align-items: flex-start; gap: 6px; }
 }
+
+/* When a case study is opened by link (e.g. the homepage Selected Work
+   cards → /projects#birmingham-roast), stop short of the fixed header so
+   the project label isn't tucked underneath it. */
+.case-study { scroll-margin-top: 48px; }
