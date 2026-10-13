@@ -114,6 +114,14 @@ finishes loading.
 `fetch`/`DOMParser`), the router falls back to a completely normal full page load — it can never
 leave the site in a broken state.
 
+## Link previews
+
+Every page's `<head>` has Open Graph / Twitter card tags pointing at `assets/og-image.jpg`
+(1200×630: the skyline photo with the JD mark, headline, and tagline, plus a dark shade on the left
+so the type reads at thumbnail size). That's the picture LinkedIn, Facebook, iMessage, Slack, and
+most email apps show when someone shares a link to the site. Platforms cache previews; after
+changing the image, LinkedIn's Post Inspector or Facebook's Sharing Debugger can force a refresh.
+
 ## Contact form
 
 The homepage "Schedule a Consultation" form (`#contactForm` in `index.html`, handled in
