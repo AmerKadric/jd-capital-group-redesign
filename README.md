@@ -19,6 +19,7 @@ router layers smooth in-app navigation on top without changing that.
 | About | `about.html` | Company mission, "Areas of Focus," founder profile (Jesse Dhillon) |
 | Projects | `projects.html` | Six featured case studies, each with its own photo carousel or video |
 | Clients | `clients.html` | Featured client spotlight, coffee/hospitality brand family, testimonial |
+| Privacy | `privacy.html` | Privacy policy (form data, Web3Forms, Vercel, Google Maps embed); linked from every footer |
 
 ### Projects page — current case studies
 

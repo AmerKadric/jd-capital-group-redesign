@@ -1062,3 +1062,58 @@ a { color: inherit; text-decoration: none; }
 .about-hero .eyebrow,
 .project-hero .eyebrow,
 .clients-hero .eyebrow { color: var(--white); }
+
+/* Inner-page heroes (About / Projects / Clients) share one height so the
+   photo-to-section edge lands in the same place on every page. Their copy
+   differs in length, so each band's min-height is set just above the
+   tallest of the three at that width (and padding-top is already the same
+   on all three, so the titles start at the same spot too). */
+.about-hero,
+.project-hero,
+.clients-hero { min-height: 560px; }
+@media (max-width: 768px) {
+  .about-hero,
+  .project-hero,
+  .clients-hero { min-height: 490px; }
+}
+@media (max-width: 480px) {
+  .about-hero,
+  .project-hero,
+  .clients-hero { min-height: 560px; }
+}
+@media (max-width: 374px) {
+  .about-hero,
+  .project-hero,
+  .clients-hero { min-height: 650px; }
+}
+
+/* ---------- Privacy policy (privacy.html) ---------- */
+.legal { max-width: 780px; }
+.legal-updated {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 28px;
+}
+.legal h2 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(22px, 2.6vw, 28px);
+  line-height: 1.25;
+  color: var(--navy);
+  margin: 48px 0 14px;
+}
+.legal h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 24px 0 8px;
+}
+.legal p, .legal li { color: var(--charcoal); font-size: 16px; line-height: 1.75; }
+.legal p { margin: 0 0 16px; }
+.legal ul { margin: 0 0 16px; padding-left: 22px; }
+.legal li { margin-bottom: 8px; }
+.legal a { color: var(--navy); border-bottom: 1px solid var(--gold); }
+.legal a:hover { color: var(--gold); }

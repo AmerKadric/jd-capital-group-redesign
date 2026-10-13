@@ -39,6 +39,12 @@
       js: [],
       trailingJs: ['js/clients.js'],
       inits: ['initClientsPage']
+    },
+    'privacy.html': {
+      css: ['css/about.css'], // reuses the About hero styles
+      js: [],
+      trailingJs: [],
+      inits: []
     }
   };
 
