@@ -102,6 +102,9 @@ body::before {
   background: url('../assets/graphics/detroit-sunset.webp') 62% 60% / cover no-repeat;
 }
 main > section { background-color: var(--wash); }
+/* Homepage sections alternate light / gray like the Clients page:
+   about (--wash) → selected work (--wash-gray) → why us (--wash) →
+   contact (--wash-gray). */
 
 img { max-width: 100%; display: block; }
 
@@ -623,7 +626,7 @@ a { color: inherit; text-decoration: none; }
    SELECTED WORK TEASER
    ========================================================= */
 .work-teaser {
-  background: var(--wash);
+  background: var(--wash-gray);
   border-top: 1px solid var(--gray-line);
   border-bottom: 1px solid var(--gray-line);
   padding: 88px 0 96px;
@@ -708,7 +711,7 @@ a { color: inherit; text-decoration: none; }
 .why-us-section {
   position: relative;
   overflow: hidden;
-  background: var(--wash-gray);
+  background: var(--wash);
 }
 .why-us-section .container { position: relative; z-index: 1; }
 .why-us-glow { top: -60px; right: 10%; width: 380px; height: 380px; }
@@ -759,7 +762,7 @@ a { color: inherit; text-decoration: none; }
 .contact-section {
   position: relative;
   overflow: hidden;
-  background: var(--wash);
+  background: var(--wash-gray);
   border-top: 1px solid var(--gray-line);
 }
 .contact-grid {
