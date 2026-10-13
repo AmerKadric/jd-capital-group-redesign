@@ -1070,21 +1070,21 @@ a { color: inherit; text-decoration: none; }
    on all three, so the titles start at the same spot too). */
 .about-hero,
 .project-hero,
-.clients-hero { min-height: 560px; }
+.clients-hero { min-height: 580px; }
 @media (max-width: 768px) {
   .about-hero,
   .project-hero,
-  .clients-hero { min-height: 490px; }
+  .clients-hero { min-height: 510px; }
 }
 @media (max-width: 480px) {
   .about-hero,
   .project-hero,
-  .clients-hero { min-height: 560px; }
+  .clients-hero { min-height: 580px; }
 }
 @media (max-width: 374px) {
   .about-hero,
   .project-hero,
-  .clients-hero { min-height: 650px; }
+  .clients-hero { min-height: 700px; }
 }
 
 /* ---------- Privacy policy (privacy.html) ---------- */

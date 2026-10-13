@@ -56,12 +56,18 @@ body.clients-page main {
   filter: blur(40px);
 }
 .clients-hero .container { position: relative; z-index: 1; }
+/* The hero matches the other inner pages exactly, so it opts back out of
+   this page's Archivo override (eyebrow + intro use the site's Public Sans)
+   and the title uses the same weight/spacing as About and Projects. */
+.clients-hero {
+  --font-sans: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-sans);
+}
 .clients-hero-title {
   font-family: var(--font-serif);
-  font-weight: 700;
+  font-weight: 600;
   font-size: clamp(32px, 5vw, 54px);
   line-height: 1.15;
-  letter-spacing: -0.01em;
   color: var(--navy);
   margin: 0 0 22px;
   max-width: 780px;
