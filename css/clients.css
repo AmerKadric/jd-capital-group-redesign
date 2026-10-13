@@ -234,7 +234,7 @@ body.clients-page main {
 
 .client-card-logo {
   position: relative;
-  height: 220px;
+  height: 260px;
   background: var(--soft-gray);
   display: flex;
   align-items: center;
@@ -242,8 +242,8 @@ body.clients-page main {
   padding: 32px;
 }
 .client-card-logo img {
-  max-width: 62%;
-  max-height: 62%;
+  max-width: 82%;
+  max-height: 82%;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -255,7 +255,7 @@ body.clients-page main {
 .client-card-overlay {
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 220px;
+  height: 260px;
   padding: 28px;
   display: flex;
   flex-direction: column;
@@ -291,10 +291,11 @@ body.clients-page main {
   padding: 18px 22px;
   background: var(--white);
   border-top: 1px solid var(--gray-line);
+  /* Name on its own line, category label beneath, so neither wraps. */
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
 }
 .client-card-footer h3 {
   font-family: var(--font-serif);
@@ -313,7 +314,7 @@ body.clients-page main {
   position: relative;
   overflow: hidden;
   background: var(--wash);
-  padding: 150px 0;
+  padding: 110px 0;
   text-align: center;
 }
 .support-glow {
@@ -331,29 +332,44 @@ body.clients-page main {
   margin: 0 0 28px;
 }
 
-.support-statement {
-  position: relative;
+.support-title {
   font-family: var(--font-serif);
-  font-weight: 500;
-  font-style: italic;
-  font-size: clamp(22px, 2.7vw, 33px);
-  line-height: 1.65;
+  font-weight: 600;
+  font-size: clamp(26px, 3.2vw, 38px);
+  line-height: 1.25;
   color: var(--navy);
-  max-width: 980px;
-  margin: 0 auto;
+  max-width: 760px;
+  margin: 0 auto 56px;
 }
-.support-quote-mark {
-  display: block;
-  font-style: normal;
-  font-size: 90px;
-  line-height: 0.4;
-  color: rgba(182, 144, 63, 0.25);
-  margin-bottom: 12px;
+/* Nine capabilities, three across: easy to scan instead of one long
+   sentence. */
+.support-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  text-align: left;
 }
-.support-statement .cap {
-  color: var(--gold);
-  font-style: normal;
-  font-weight: 700;
+.support-item {
+  background: var(--white);
+  border: 1px solid var(--gray-line);
+  border-top: 3px solid var(--gold);
+  border-radius: 4px;
+  padding: 26px 26px 24px;
+  box-shadow: 0 10px 28px rgba(24, 22, 20, 0.05);
+}
+.support-item h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 19px;
+  line-height: 1.3;
+  color: var(--navy);
+  margin: 0 0 8px;
+}
+.support-item p {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--gray-mid);
+  margin: 0;
 }
 
 /* ---------- Buttons (gold-on-dark variant, used inside the
@@ -374,6 +390,7 @@ body.clients-page main {
   .featured-client { grid-template-columns: 1fr; }
   .featured-client-logo { padding: 40px; }
   .client-grid { grid-template-columns: repeat(2, 1fr); }
+  .support-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
@@ -381,7 +398,8 @@ body.clients-page main {
   .featured-client-body { padding: 32px 24px; }
   .client-grid { grid-template-columns: 1fr; }
   .support-section { padding: 88px 0; }
-  .support-quote-mark { font-size: 60px; }
+  .support-grid { grid-template-columns: 1fr; }
+  .support-title { margin-bottom: 36px; }
   .filter-bar-inner { padding: 16px 24px; gap: 8px; }
   .filter-tab { padding: 9px 16px; font-size: 12.5px; }
   /* On touch devices, always show the overlay content below the logo
