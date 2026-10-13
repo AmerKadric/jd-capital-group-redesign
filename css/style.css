@@ -1161,10 +1161,6 @@ a { color: inherit; text-decoration: none; }
 .legal a { color: var(--navy); border-bottom: 1px solid var(--gold); }
 .legal a:hover { color: var(--gold); }
 
-/* Selected Work sits directly above Contact on the homepage; drop Contact's
-   top rule so the two borders don't stack into a double line. */
-.work-teaser + .contact-section { border-top: none; }
-
 /* Selected Work cards: 3-up on desktop, stacked on narrow screens. */
 @media (max-width: 1024px) {
   .work-cards { grid-template-columns: 1fr 1fr; }

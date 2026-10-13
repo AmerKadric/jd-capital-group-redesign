@@ -106,12 +106,6 @@ body.projects-page {
   border-radius: 20px;
 }
 
-.case-divider {
-  height: 1px;
-  max-width: var(--max-width);
-  margin: 0 auto;
-  background: linear-gradient(90deg, transparent, rgba(182, 144, 63, 0.4), transparent);
-}
 
 /* ---------- Image carousel ---------- */
 .carousel { max-width: 720px; }
