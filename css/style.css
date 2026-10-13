@@ -1117,3 +1117,7 @@ a { color: inherit; text-decoration: none; }
 .legal li { margin-bottom: 8px; }
 .legal a { color: var(--navy); border-bottom: 1px solid var(--gold); }
 .legal a:hover { color: var(--gold); }
+
+/* Selected Work sits directly above Contact on the homepage; drop Contact's
+   top rule so the two borders don't stack into a double line. */
+.work-teaser + .contact-section { border-top: none; }
