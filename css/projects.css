@@ -410,3 +410,35 @@ body.projects-page {
    cards → /projects#birmingham-roast), stop short of the fixed header so
    the project label isn't tucked underneath it. */
 .case-study { scroll-margin-top: 48px; }
+
+/* Desktop: each case study sits side by side, text and photos/video, and
+   alternates sides from one project to the next. Narrower screens keep the
+   stacked layout above. */
+@media (min-width: 1025px) {
+  .case-study > .container {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    gap: 64px;
+    align-items: center;
+  }
+  .case-study .case-head { max-width: none; margin: 0; }
+  .case-study .project-copy { max-width: none; }
+  .case-study .carousel { max-width: none; }
+  /* Every other project flips: photos on the left, text on the right. */
+  .case-study:nth-of-type(odd) > .container { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+  .case-study:nth-of-type(odd) .case-head { order: 2; }
+  .case-study:nth-of-type(odd) .carousel { order: 1; }
+  .case-study { padding: 88px 0; }
+  .case-head h2 { line-height: 1.2; }
+  /* Arrows sit over the photo's edges instead of beside it, so the photo
+     gets the full column width. */
+  .case-study .carousel-stage { gap: 0; }
+  .case-study .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+  }
+  .case-study .carousel-prev { left: 24px; }
+  .case-study .carousel-next { right: 24px; }
+}
