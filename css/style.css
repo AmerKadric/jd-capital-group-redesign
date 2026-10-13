@@ -769,11 +769,20 @@ a { color: inherit; text-decoration: none; }
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 0.6fr 1fr 1fr;
-  gap: 40px;
+  /* Two columns: heading, details and map on the left; a wider form on the
+     right spanning both rows. */
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "copy form"
+    "map  form";
+  grid-template-rows: auto 1fr;
+  column-gap: 56px;
+  row-gap: 8px;
   align-items: stretch;
 }
-.contact-copy { align-self: start; }
+.contact-copy { grid-area: copy; align-self: start; }
+.contact-form { grid-area: form; }
+.contact-map-frame { grid-area: map; }
 
 .contact-details {
   display: flex;
@@ -946,6 +955,8 @@ a { color: inherit; text-decoration: none; }
 
 @media (max-width: 1024px) {
   .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  /* Stacked: heading/details, then the form, then the map. */
+  .contact-grid { grid-template-areas: "copy" "form" "map"; grid-template-rows: auto; }
 
   /* Photo carousel drops below the text column, content-first; edge
      captions reappear as a two-up row beneath everything. */
