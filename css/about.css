@@ -138,8 +138,33 @@ body.about-page {
   font-size: 13px;
   color: var(--gold);
   font-weight: 600;
+  margin: 0 0 16px;
+}
+/* LinkedIn / Facebook, centered under the title (same icons as the footer,
+   recolored for the light card). */
+.founder-social {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
   margin: 0 0 24px;
 }
+.founder-social a {
+  width: 38px; height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(182, 144, 63, 0.45);
+  color: var(--gold);
+  background: var(--white);
+  transition: all var(--transition);
+}
+.founder-social a:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--white);
+}
+.founder-social svg { width: 17px; height: 17px; fill: currentColor; }
 .founder-facts {
   list-style: none;
   margin: 0;
