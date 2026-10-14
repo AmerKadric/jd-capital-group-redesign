@@ -111,9 +111,7 @@ body.clients-page main {
 .featured-client-section.filtered-out,
 .hospitality-section.filtered-out,
 .realestate-section.filtered-out { display: none; }
-/* Mark V Homes' logo file has its own white background, so its panel is
-   white instead of the usual soft gray (the logo file is used as-is). */
-.featured-client--light-logo .featured-client-logo { background: var(--white); }
+
 
 .featured-client {
   display: grid;
@@ -127,7 +125,7 @@ body.clients-page main {
 }
 
 .featured-client-logo {
-  background: var(--soft-gray);
+  background: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
