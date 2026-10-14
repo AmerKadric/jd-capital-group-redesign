@@ -114,6 +114,16 @@ finishes loading.
 `fetch`/`DOMParser`), the router falls back to a completely normal full page load — it can never
 leave the site in a broken state.
 
+## Help guide (bottom-right button)
+
+Every page has a gold help button in the bottom-right corner (markup just before `#backToTop`
+in each page, styles at the end of `css/style.css`, behavior in `initChrome()` in `js/main.js`).
+It opens a small menu of shortcuts: schedule a consultation, what we do
+(`/clients#capabilities`), projects, clients, about Jesse, and email. It's plain links, so no chat
+service, account, or visitor data is involved. Like the header and footer it lives outside
+`<main>`, so it stays put during client-side navigation. To change a shortcut, edit the
+`.guide-links` list in all five pages. The back-to-top button sits just above it.
+
 ## Link previews
 
 Every page's `<head>` has Open Graph / Twitter card tags pointing at `assets/og-image.jpg`

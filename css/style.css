@@ -936,8 +936,8 @@ a { color: inherit; text-decoration: none; }
    ========================================================= */
 .back-to-top {
   position: fixed;
-  bottom: 28px;
-  right: 28px;
+  bottom: 100px; /* stacked above the guide button */
+  right: 33px;
   width: 46px; height: 46px;
   border-radius: 50%;
   background: var(--white);
@@ -1247,3 +1247,113 @@ a { color: inherit; text-decoration: none; }
   font-weight: 600;
   color: var(--gold);
 }
+
+/* =========================================================
+   GUIDE — bottom-right help menu on every page (persistent chrome,
+   like the header/footer; behavior in js/main.js). Links only: no chat
+   service, nothing sent anywhere.
+   ========================================================= */
+.guide { font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.guide-toggle {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 850;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: var(--gold);
+  color: var(--white);
+  box-shadow: 0 12px 30px rgba(182, 144, 63, 0.35), 0 4px 12px rgba(24, 22, 20, 0.15);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), transform var(--transition);
+}
+.guide-toggle:hover { background: var(--navy); }
+.guide-toggle svg { width: 24px; height: 24px; }
+.guide-icon-open { fill: currentColor; }
+.guide-icon-close { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; display: none; }
+.guide.is-open .guide-icon-open { display: none; }
+.guide.is-open .guide-icon-close { display: block; }
+
+.guide-panel {
+  position: fixed;
+  right: 28px;
+  bottom: 98px;
+  z-index: 850;
+  width: 340px;
+  max-width: calc(100vw - 32px);
+  background: var(--white);
+  border: 1px solid var(--gray-line);
+  border-top: 3px solid var(--gold);
+  border-radius: 8px;
+  box-shadow: 0 30px 70px rgba(24, 22, 20, 0.22);
+  overflow: hidden;
+  transform-origin: bottom right;
+  animation: guide-in 0.22s ease;
+}
+@keyframes guide-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+.guide-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--gray-line);
+}
+.guide-head .brand-mark { flex: 0 0 auto; width: 36px; height: 36px; font-size: 18px; }
+.guide-title {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--navy);
+  margin: 0 0 2px;
+}
+.guide-sub { font-size: 13px; color: var(--gray-mid); margin: 0; }
+.guide-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--gray-mid);
+  cursor: pointer;
+  padding: 0 2px;
+}
+.guide-close:hover { color: var(--navy); }
+.guide-links { display: flex; flex-direction: column; padding: 10px; }
+.guide-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 4px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--navy);
+  transition: background var(--transition), color var(--transition);
+}
+.guide-link span:last-child { color: var(--gold); transition: transform var(--transition); }
+.guide-link:hover { background: var(--soft-gray); }
+.guide-link:hover span:last-child { transform: translateX(3px); }
+.guide-link--primary { background: var(--gold); color: var(--white); margin-bottom: 4px; }
+.guide-link--primary span:last-child { color: var(--white); }
+.guide-link--primary:hover { background: var(--navy); }
+.guide-foot {
+  font-size: 12px;
+  color: var(--gray-mid);
+  text-align: center;
+  margin: 0;
+  padding: 0 20px 16px;
+}
+@media (max-width: 600px) {
+  .guide-toggle { right: 16px; bottom: 16px; width: 52px; height: 52px; }
+  .guide-panel { right: 16px; bottom: 80px; }
+  .back-to-top { right: 19px; bottom: 82px; }
+}
+@media (prefers-reduced-motion: reduce) { .guide-panel { animation: none; } }

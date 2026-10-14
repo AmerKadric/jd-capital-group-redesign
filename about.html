@@ -245,6 +245,33 @@
   </div>
 </footer>
 
+<!-- ============ GUIDE (persistent, like the header/footer) ============ -->
+<div class="guide" id="guide">
+  <div class="guide-panel" id="guidePanel" role="dialog" aria-modal="false" aria-labelledby="guideTitle" hidden>
+    <div class="guide-head">
+      <span class="brand-mark">JD</span>
+      <div>
+        <p class="guide-title" id="guideTitle">Hi, how can we help?</p>
+        <p class="guide-sub">Pick a topic and we&rsquo;ll take you there.</p>
+      </div>
+      <button type="button" class="guide-close" id="guideClose" aria-label="Close">&times;</button>
+    </div>
+    <nav class="guide-links" aria-label="Quick help">
+      <a href="/#contact" class="guide-link guide-link--primary"><span>Schedule a consultation</span><span aria-hidden="true">&rarr;</span></a>
+      <a href="/clients#capabilities" class="guide-link"><span>What we do</span><span aria-hidden="true">&rarr;</span></a>
+      <a href="/projects" class="guide-link"><span>See our projects</span><span aria-hidden="true">&rarr;</span></a>
+      <a href="/clients" class="guide-link"><span>Our clients</span><span aria-hidden="true">&rarr;</span></a>
+      <a href="/about" class="guide-link"><span>Meet Jesse Dhillon</span><span aria-hidden="true">&rarr;</span></a>
+      <a href="mailto:jesse@jdcapitalgrp.com" class="guide-link"><span>Email Jesse directly</span><span aria-hidden="true">&rarr;</span></a>
+    </nav>
+    <p class="guide-foot">Inquiries are typically answered within one business day.</p>
+  </div>
+  <button type="button" class="guide-toggle" id="guideToggle" aria-expanded="false" aria-controls="guidePanel" aria-label="Open help menu">
+    <svg class="guide-icon-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.2 3.6a.5.5 0 0 1-.8-.4V16a2.5 2.5 0 0 1-1-2v-8.5A2.5 2.5 0 0 1 6.5 3z"/></svg>
+    <svg class="guide-icon-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+</div>
+
 <button id="backToTop" class="back-to-top" aria-label="Back to top">&uarr;</button>
 
 <script src="js/main.js"></script>

@@ -1,4 +1,4 @@
-// JD Capital Group — persistent site chrome (header, mobile nav, back-to-top).
+// JD Capital Group — persistent site chrome (header, mobile nav, back-to-top, guide).
 // Runs exactly once per real page load. The header/footer/back-to-top button
 // are never removed from the DOM during client-side navigation (see
 // router.js), so none of this ever needs to run a second time.
@@ -37,6 +37,32 @@ function initChrome() {
       navToggle.setAttribute('aria-expanded', 'false');
     });
   });
+
+  // ---- Guide (bottom-right help menu) ----
+  const guide = document.getElementById('guide');
+  if (guide) {
+    const toggle = document.getElementById('guideToggle');
+    const panel = document.getElementById('guidePanel');
+    const close = document.getElementById('guideClose');
+
+    const setGuide = (open) => {
+      guide.classList.toggle('is-open', open);
+      panel.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close help menu' : 'Open help menu');
+    };
+
+    toggle.addEventListener('click', () => setGuide(panel.hidden));
+    close.addEventListener('click', () => { setGuide(false); toggle.focus(); });
+    // Choosing a destination closes the menu (the router handles the link).
+    panel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setGuide(false)));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !panel.hidden) { setGuide(false); toggle.focus(); }
+    });
+    document.addEventListener('click', (e) => {
+      if (!panel.hidden && !guide.contains(e.target)) setGuide(false);
+    });
+  }
 
   // ---- Footer year ----
   const yearEl = document.getElementById('year');
