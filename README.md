@@ -20,6 +20,7 @@ router layers smooth in-app navigation on top without changing that.
 | Projects | `projects.html` | Six featured case studies, each with its own photo carousel or video |
 | Clients | `clients.html` | Lady Jane's spotlight + testimonial, coffee/hospitality brand family, Mark V Homes (real estate), capability explorer; filter tabs per category |
 | Privacy | `privacy.html` | Privacy policy (form data, Web3Forms, Vercel, Google Maps embed); linked from every footer |
+| Not found | `404.html` | Branded 404 (Vercel serves it for any unknown URL); links home, to the consultation form, and to the main pages. All paths are root-absolute since it can render at any depth. |
 
 ### Projects page — current case studies
 
