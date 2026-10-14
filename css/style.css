@@ -1272,6 +1272,26 @@ a { color: inherit; text-decoration: none; }
   transition: background var(--transition), transform var(--transition);
 }
 .guide-toggle:hover { background: var(--navy); }
+/* Soft gold glow that pulses outward every few seconds to draw the eye.
+   Paused while the menu is open, on hover, and for reduced-motion users. */
+.guide-toggle { isolation: isolate; }
+.guide-toggle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 50%;
+  background: var(--gold-light);
+  animation: guide-pulse 2.8s ease-out infinite;
+  pointer-events: none;
+}
+.guide.is-open .guide-toggle::before,
+.guide-toggle:hover::before { animation: none; opacity: 0; }
+@keyframes guide-pulse {
+  0%   { transform: scale(1);    opacity: 0.55; }
+  70%  { transform: scale(1.65); opacity: 0; }
+  100% { transform: scale(1.65); opacity: 0; }
+}
 .guide-toggle svg { width: 24px; height: 24px; }
 .guide-icon-open { fill: currentColor; }
 .guide-icon-close { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; display: none; }
@@ -1356,4 +1376,7 @@ a { color: inherit; text-decoration: none; }
   .guide-panel { right: 16px; bottom: 80px; }
   .back-to-top { right: 19px; bottom: 82px; }
 }
-@media (prefers-reduced-motion: reduce) { .guide-panel { animation: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .guide-panel { animation: none; }
+  .guide-toggle::before { animation: none; opacity: 0; }
+}
