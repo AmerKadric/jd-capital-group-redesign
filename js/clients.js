@@ -23,7 +23,7 @@ function initClientsPage() {
   });
 
   // ---- Whole-card click opens the brand's website (button remains the labeled action) ----
-  document.querySelectorAll('.client-card, .featured-client').forEach(card => {
+  document.querySelectorAll('.featured-client').forEach(card => {
     const link = card.querySelector('a[target="_blank"]');
     if (!link) return;
 

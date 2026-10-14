@@ -1,11 +1,8 @@
 /* =========================================================
    JD CAPITAL GROUP — CLIENTS PAGE
-   Light, white-based brand showcase: featured client spotlight,
-   a hospitality brand family, interactive filtering, and a
-   credibility section. Logos sit on soft-gray "matted" panels;
-   each hospitality card's hover reveal stays a deliberate dark
-   navy accent — a small, intentional contrast moment rather
-   than a page-level dark section.
+   Light, white-based brand showcase: client spotlights (Lady Jane's,
+   the Roast coffee family, Mark V Homes), interactive filtering, and
+   a capability explorer. Logos sit on "matted" logo panels.
    ========================================================= */
 
 /* Archivo — a sharper, more structured grotesque than the site's default
@@ -212,104 +209,20 @@ body.clients-page main {
 
 /* ---------- Hospitality client grid ---------- */
 .hospitality-section { position: relative; overflow: hidden; background: var(--wash-gray); }
-.hospitality-glow { top: 20%; left: -80px; width: 420px; height: 420px; }
 .hospitality-section .container { position: relative; z-index: 1; }
 
-.client-grid {
+/* Three Roast logos share one spotlight panel: two up top, one centered
+   below. */
+.roast-logos {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+  justify-items: center;
+  align-content: center;
 }
-
-.client-card {
-  position: relative;
-  background: var(--white);
-  border: 1px solid var(--gray-line);
-  border-radius: 6px;
-  overflow: hidden;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(24, 22, 20,0.04);
-  transition: box-shadow var(--transition), border-color var(--transition);
-}
-.client-card:hover, .client-card.is-open {
-  box-shadow: 0 16px 32px rgba(24, 22, 20,0.1);
-  border-color: rgba(182, 144, 63, 0.4);
-}
-
-.client-card-logo {
-  position: relative;
-  height: 260px;
-  background: var(--soft-gray);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 32px;
-}
-.client-card-logo img {
-  max-width: 82%;
-  max-height: 82%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  display: block;
-}
-
-/* Deliberate dark accent on hover — a small, transient contrast
-   moment against the page's light theme, not a static dark section. */
-.client-card-overlay {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 260px;
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: linear-gradient(160deg, rgba(24, 22, 20,0.97) 0%, rgba(13, 11, 10,0.97) 100%);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-  pointer-events: none;
-}
-.client-card:hover .client-card-overlay,
-.client-card.is-open .client-card-overlay,
-.client-card:focus-within .client-card-overlay {
-  opacity: 1;
-  pointer-events: auto;
-}
-.client-card-overlay .client-category { color: var(--gold-light); margin-bottom: 8px; }
-.client-card-overlay h3 {
-  font-family: var(--font-serif);
-  font-weight: 700;
-  font-size: 20px;
-  letter-spacing: -0.005em;
-  color: var(--white);
-  margin: 0 0 10px;
-}
-.client-card-overlay p {
-  font-size: 13.5px;
-  color: #c6cedb;
-  margin: 0 0 18px;
-  line-height: 1.55;
-}
-
-.client-card-footer {
-  padding: 18px 22px;
-  background: var(--white);
-  border-top: 1px solid var(--gray-line);
-  /* Name on its own line, category label beneath, so neither wraps. */
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
-}
-.client-card-footer h3 {
-  font-family: var(--font-serif);
-  font-weight: 700;
-  font-size: 17px;
-  letter-spacing: -0.005em;
-  color: var(--navy);
-  margin: 0;
-}
-.client-card-footer .client-category { margin: 0; }
+/* sized by height so the three differently-shaped files read as one set */
+.roast-logos img { height: 112px; width: auto; max-width: 100%; max-height: none; object-fit: contain; }
+.roast-logos img:last-child { grid-column: 1 / -1; }
 
 /* ---------- Support capabilities — one large flowing statement, not a
    grid or list. Reads as a confident closing statement rather than
@@ -515,43 +428,17 @@ body.clients-page main {
   .support-detail { animation: none; }
 }
 
-/* ---------- Buttons (gold-on-dark variant, used inside the
-   dark hover overlay above) ---------- */
-.btn-outline-light {
-  background: transparent;
-  border-color: rgba(216, 184, 118, 0.5);
-  color: var(--gold-light);
-}
-.btn-outline-light:hover {
-  background: var(--gold-light);
-  color: var(--navy-deep);
-  border-color: var(--gold-light);
-}
-
 /* ---------- Responsive ---------- */
 @media (max-width: 1024px) {
   .featured-client { grid-template-columns: 1fr; }
   .featured-client-logo { padding: 40px; }
-  .client-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
   .clients-hero { padding: 140px 0 48px; }
   .featured-client-body { padding: 32px 24px; }
-  .client-grid { grid-template-columns: 1fr; }
   .support-section { padding: 88px 0; }
   .support-title { margin-bottom: 36px; }
   .filter-bar-inner { padding: 16px 24px; gap: 8px; }
   .filter-tab { padding: 9px 16px; font-size: 12.5px; }
-  /* On touch devices, always show the overlay content below the logo
-     rather than relying on hover — keeps details visible on mobile. */
-  .client-card-overlay {
-    position: static;
-    height: auto;
-    opacity: 1;
-    pointer-events: auto;
-    background: var(--navy);
-  }
-  .client-card-logo { height: 180px; }
-  .client-card-footer { display: none; }
 }
