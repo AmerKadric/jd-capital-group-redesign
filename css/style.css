@@ -1493,12 +1493,10 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 600px) { .why-stats { grid-template-columns: 1fr; } }
 
 /* ---------- Homepage "Trusted by" logo strip ---------- */
-/* Translucent like the other sections, in the gray shade so it reads as
-   its own band above About. */
+/* Same translucent shade as the About section below, with no dividing
+   lines, so the two read as one continuous surface when scrolling. */
 main > section.trusted-strip {
-  background: var(--wash-gray);
-  border-top: 1px solid var(--gray-line);
-  border-bottom: 1px solid var(--gray-line);
+  background: var(--wash);
   padding: 34px 0;
 }
 .trusted-strip .container {
