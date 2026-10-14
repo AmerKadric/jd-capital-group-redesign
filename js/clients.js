@@ -3,8 +3,12 @@ function initClientsPage() {
 
   // ---- Category filter tabs ----
   const filterTabs = document.querySelectorAll('.filter-tab');
-  const featuredSection = document.querySelector('.featured-client-section');
-  const hospitalitySection = document.querySelector('.hospitality-section');
+  // Each filter shows one section (or all of them).
+  const filterSections = {
+    grooming: document.querySelector('.featured-client-section'),
+    hospitality: document.querySelector('.hospitality-section'),
+    realestate: document.querySelector('.realestate-section')
+  };
 
   filterTabs.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -12,11 +16,9 @@ function initClientsPage() {
       tab.classList.add('active');
 
       const filter = tab.getAttribute('data-filter');
-
-      if (!featuredSection || !hospitalitySection) return;
-
-      featuredSection.classList.toggle('filtered-out', filter === 'hospitality');
-      hospitalitySection.classList.toggle('filtered-out', filter === 'grooming');
+      Object.entries(filterSections).forEach(([key, section]) => {
+        if (section) section.classList.toggle('filtered-out', filter !== 'all' && filter !== key);
+      });
     });
   });
 

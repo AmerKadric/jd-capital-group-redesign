@@ -109,7 +109,11 @@ body.clients-page main {
 /* ---------- Featured client ---------- */
 .featured-client-section { padding-top: 72px; }
 .featured-client-section.filtered-out,
-.hospitality-section.filtered-out { display: none; }
+.hospitality-section.filtered-out,
+.realestate-section.filtered-out { display: none; }
+/* Mark V Homes' logo file has its own white background, so its panel is
+   white instead of the usual soft gray (the logo file is used as-is). */
+.featured-client--light-logo .featured-client-logo { background: var(--white); }
 
 .featured-client {
   display: grid;
@@ -313,7 +317,7 @@ body.clients-page main {
 .support-section {
   position: relative;
   overflow: hidden;
-  background: var(--wash);
+  background: var(--wash-gray);
   padding: 110px 0;
   text-align: center;
 }

@@ -18,7 +18,7 @@ router layers smooth in-app navigation on top without changing that.
 | Home | `index.html` | Hero photo carousel, About/What We Do teaser, Why Us, Contact form |
 | About | `about.html` | Company mission, "Areas of Focus," founder profile (Jesse Dhillon) |
 | Projects | `projects.html` | Six featured case studies, each with its own photo carousel or video |
-| Clients | `clients.html` | Featured client spotlight, coffee/hospitality brand family, testimonial |
+| Clients | `clients.html` | Lady Jane's spotlight + testimonial, coffee/hospitality brand family, Mark V Homes (real estate), capability explorer; filter tabs per category |
 | Privacy | `privacy.html` | Privacy policy (form data, Web3Forms, Vercel, Google Maps embed); linked from every footer |
 
 ### Projects page — current case studies
