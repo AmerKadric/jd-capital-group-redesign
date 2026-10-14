@@ -736,11 +736,25 @@ a { color: inherit; text-decoration: none; }
 .why-row {
   display: flex;
   gap: 24px;
-  padding: 36px 0;
+  /* side padding offset by negative margin: the text stays where it was,
+     but the hover card has room around it */
+  padding: 36px 24px;
+  margin: 0 -24px;
   border-bottom: 1px solid var(--gray-line);
-  transition: border-color var(--transition);
+  border-radius: 4px;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition);
 }
-.why-row:hover { border-bottom-color: var(--gold); }
+/* Same grow-and-lift hover as the stat and project cards: the point lifts
+   onto a white card. */
+.why-row:hover {
+  background: var(--white);
+  border-bottom-color: transparent;
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 22px 44px rgba(24, 22, 20, 0.12);
+}
+@media (prefers-reduced-motion: reduce) {
+  .why-row, .why-row:hover { transition: none; transform: none; }
+}
 .why-row:nth-last-child(-n+2) { border-bottom: none; }
 
 .why-num {
@@ -760,6 +774,7 @@ a { color: inherit; text-decoration: none; }
   margin: 0 0 12px;
 }
 .why-copy p { color: var(--gray-mid); font-size: 14.5px; line-height: 1.65; margin: 0; }
+.why-copy p strong { color: var(--navy); font-weight: 600; }
 
 /* =========================================================
    CONTACT
