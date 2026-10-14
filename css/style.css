@@ -1513,7 +1513,8 @@ main > section.trusted-strip {
   color: var(--gold);
   margin: 0;
 }
-.trusted-logos-link { flex: 1; display: block; }
+.trusted-logos { flex: 1; }
+.trusted-logos a { display: block; }
 .trusted-logos {
   list-style: none;
   margin: 0;

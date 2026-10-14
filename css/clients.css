@@ -105,6 +105,9 @@ body.clients-page main {
 
 /* ---------- Featured client ---------- */
 .featured-client-section { padding-top: 72px; }
+/* Client cards are link targets (e.g. the homepage "Trusted by" logos →
+   /clients#mark-v-homes); stop below the fixed header with some air. */
+.featured-client { scroll-margin-top: 110px; }
 .featured-client-section.filtered-out,
 .hospitality-section.filtered-out,
 .realestate-section.filtered-out { display: none; }
