@@ -235,15 +235,15 @@
 
     runInits(key);
 
-    if (target.hash) {
-      // Land directly on the section of the newly swapped-in page. A smooth
-      // scroll here would animate from wherever the previous page was
-      // scrolled to, which reads as a jolt rather than a navigation.
-      // ('instant', not 'auto': html has scroll-behavior: smooth.)
-      const el = document.querySelector(target.hash);
-      if (el) el.scrollIntoView({ behavior: 'instant' });
+    // Land directly on the new page (top, or the linked section). A smooth
+    // scroll here would animate from wherever the previous page was
+    // scrolled to, which reads as the page scrolling up rather than a
+    // navigation. ('instant', not 'auto': html has scroll-behavior: smooth.)
+    const el = target.hash && document.querySelector(target.hash);
+    if (el) {
+      el.scrollIntoView({ behavior: 'instant' });
     } else {
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     }
 
     const liveMain = document.querySelector('main');
