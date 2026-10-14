@@ -400,8 +400,25 @@
           <input type="email" id="email" name="email" required autocomplete="email">
         </div>
         <div class="form-row">
+          <label for="phone">Phone Number <span class="form-optional">(optional)</span></label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel">
+        </div>
+        <div class="form-row">
           <label for="company">Company</label>
           <input type="text" id="company" name="company" autocomplete="organization">
+        </div>
+        <div class="form-row">
+          <label for="source">How did you hear about JD Capital Group?</label>
+          <select id="source" name="source">
+            <option value="">Select one (optional)</option>
+            <option>Referral from a friend or colleague</option>
+            <option>LinkedIn</option>
+            <option>Google or another search engine</option>
+            <option>Facebook or Instagram</option>
+            <option>Event or networking</option>
+            <option>Existing client or partner</option>
+            <option>Other</option>
+          </select>
         </div>
         <div class="form-row">
           <label for="message">Tell us about your business</label>

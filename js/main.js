@@ -106,14 +106,17 @@ function initHomeContent() {
       e.preventDefault();
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
       const company = document.getElementById('company').value.trim();
+      const source = document.getElementById('source').value;
       const message = document.getElementById('message').value.trim();
       const accessKey = contactForm.dataset.accessKey;
 
       if (!accessKey) {
         const subject = encodeURIComponent(`Consultation Request from ${name}`);
         const body = encodeURIComponent(
-          `Name: ${name}\nEmail: ${email}\nCompany: ${company}\n\nMessage:\n${message}`
+          `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nCompany: ${company}\n` +
+          `Heard about us: ${source}\n\nMessage:\n${message}`
         );
         window.location.href = `mailto:jesse@jdcapitalgrp.com?subject=${subject}&body=${body}`;
         formNote.textContent = 'Opening your email client to send this inquiry...';
@@ -134,7 +137,9 @@ function initHomeContent() {
             from_name: 'JD Capital Group Website',
             replyto: email,
             botcheck: contactForm.elements.botcheck.checked,
-            name, email, company, message,
+            name, email, phone, company,
+            how_did_you_hear: source,
+            message,
           }),
         });
         const result = await res.json();
