@@ -31,25 +31,45 @@ function initClientsPage() {
     });
   });
 
-  // ---- Capability cards: click (or Enter/Space on the title) to open a
-  // short explanation. One card open at a time. ----
-  const capCards = [...document.querySelectorAll('.support-item')];
+  // ---- Capability explorer ----
+  // Desktop (>=1025px): list + panel; exactly one capability is always
+  // shown, and hovering a name (with a mouse) shows it too.
+  // Narrower screens: tap-to-open cards, one open at a time, all may close.
+  const capItems = [...document.querySelectorAll('.support-item')];
+  const desktop = window.matchMedia('(min-width: 1025px)');
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
 
-  function setOpen(card, open) {
-    const toggle = card.querySelector('.support-toggle');
-    const detail = card.querySelector('.support-detail');
-    card.classList.toggle('is-open', open);
-    toggle.setAttribute('aria-expanded', String(open));
-    detail.hidden = !open;
+  function setOpen(item, open) {
+    item.classList.toggle('is-open', open);
+    item.querySelector('.support-toggle').setAttribute('aria-expanded', String(open));
+    item.querySelector('.support-detail').hidden = !open;
+  }
+  function show(item) {
+    capItems.forEach(other => setOpen(other, other === item));
   }
 
-  capCards.forEach(card => {
-    card.addEventListener('click', () => {
-      const opening = !card.classList.contains('is-open');
-      capCards.forEach(other => { if (other !== card) setOpen(other, false); });
-      setOpen(card, opening);
+  capItems.forEach(item => {
+    const toggle = item.querySelector('.support-toggle');
+    toggle.addEventListener('click', () => {
+      if (desktop.matches) { show(item); return; }
+      const opening = !item.classList.contains('is-open');
+      capItems.forEach(other => setOpen(other, false));
+      setOpen(item, opening);
+    });
+    toggle.addEventListener('mouseenter', () => {
+      if (desktop.matches && canHover.matches && !item.classList.contains('is-open')) show(item);
     });
   });
+
+  // Desktop always shows one panel; if none is open when switching up to
+  // desktop width, show the first.
+  function ensureOne() {
+    if (desktop.matches && capItems.length && !capItems.some(i => i.classList.contains('is-open'))) {
+      show(capItems[0]);
+    }
+  }
+  ensureOne();
+  desktop.addEventListener('change', ensureOne);
 }
 // initClientsPage() is called by router.js — both on a real page load and
 // again every time the Clients page's <main> is swapped back in.
