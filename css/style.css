@@ -1281,16 +1281,16 @@ a { color: inherit; text-decoration: none; }
   inset: 0;
   z-index: -1;
   border-radius: 50%;
-  background: var(--gold-light);
-  animation: guide-pulse 2.8s ease-out infinite;
+  background: var(--gold);
+  animation: guide-pulse 1.8s ease-out infinite;
   pointer-events: none;
 }
 .guide.is-open .guide-toggle::before,
 .guide-toggle:hover::before { animation: none; opacity: 0; }
 @keyframes guide-pulse {
-  0%   { transform: scale(1);    opacity: 0.55; }
-  70%  { transform: scale(1.65); opacity: 0; }
-  100% { transform: scale(1.65); opacity: 0; }
+  0%   { transform: scale(1);   opacity: 0.8; }
+  75%  { transform: scale(1.9); opacity: 0; }
+  100% { transform: scale(1.9); opacity: 0; }
 }
 .guide-toggle svg { width: 24px; height: 24px; }
 .guide-icon-open { fill: currentColor; }
