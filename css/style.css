@@ -1493,9 +1493,10 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 600px) { .why-stats { grid-template-columns: 1fr; } }
 
 /* ---------- Homepage "Trusted by" logo strip ---------- */
-/* Solid white (some logo files carry their own white background) */
+/* Translucent like the other sections, in the gray shade so it reads as
+   its own band above About. */
 main > section.trusted-strip {
-  background: var(--white);
+  background: var(--wash-gray);
   border-top: 1px solid var(--gray-line);
   border-bottom: 1px solid var(--gray-line);
   padding: 34px 0;
@@ -1532,6 +1533,9 @@ main > section.trusted-strip {
   /* muted until hovered, so the row reads as one calm set */
   filter: grayscale(100%);
   opacity: 0.7;
+  /* multiply drops any white in a logo file (e.g. Mark V's white square)
+     into the background without editing the file */
+  mix-blend-mode: multiply;
   transition: filter var(--transition), opacity var(--transition), transform var(--transition);
 }
 .trusted-logos li:hover img { filter: none; opacity: 1; transform: scale(1.06); }
