@@ -1304,7 +1304,7 @@ a { color: inherit; text-decoration: none; }
   z-index: -1;
   border-radius: 50%;
   background: var(--gold);
-  animation: guide-pulse 1.2s ease-out infinite;
+  animation: guide-pulse 1s ease-out infinite;
   pointer-events: none;
 }
 .guide.is-open .guide-toggle::before,
