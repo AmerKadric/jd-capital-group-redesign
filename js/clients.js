@@ -30,6 +30,26 @@ function initClientsPage() {
       window.open(link.href, '_blank', 'noopener');
     });
   });
+
+  // ---- Capability cards: click (or Enter/Space on the title) to open a
+  // short explanation. One card open at a time. ----
+  const capCards = [...document.querySelectorAll('.support-item')];
+
+  function setOpen(card, open) {
+    const toggle = card.querySelector('.support-toggle');
+    const detail = card.querySelector('.support-detail');
+    card.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    detail.hidden = !open;
+  }
+
+  capCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const opening = !card.classList.contains('is-open');
+      capCards.forEach(other => { if (other !== card) setOpen(other, false); });
+      setOpen(card, opening);
+    });
+  });
 }
 // initClientsPage() is called by router.js — both on a real page load and
 // again every time the Clients page's <main> is swapped back in.

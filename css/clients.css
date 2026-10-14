@@ -349,6 +349,9 @@ body.clients-page main {
   gap: 20px;
   text-align: left;
 }
+/* While a card is open it grows on its own; its row-mates keep their
+   natural height instead of stretching to match it. */
+.support-grid:has(.is-open) { align-items: start; }
 .support-item {
   background: var(--white);
   border: 1px solid var(--gray-line);
@@ -367,7 +370,9 @@ body.clients-page main {
 }
 @media (prefers-reduced-motion: reduce) {
   .support-item, .support-item:hover { transition: none; transform: none; }
+  .support-detail { animation: none; }
 }
+.support-item { cursor: pointer; }
 .support-item h3 {
   font-family: var(--font-serif);
   font-weight: 600;
@@ -375,6 +380,63 @@ body.clients-page main {
   line-height: 1.3;
   color: var(--navy);
   margin: 0 0 8px;
+}
+/* The title is the real (keyboard-accessible) toggle; the whole card is
+   clickable too, via js/clients.js. */
+.support-toggle {
+  all: unset;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+.support-toggle:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 2px; }
+/* + that turns into − when open */
+.support-icon {
+  position: relative;
+  flex: 0 0 22px;
+  width: 22px; height: 22px;
+  margin-top: 2px;
+  border-radius: 50%;
+  border: 1px solid rgba(182, 144, 63, 0.5);
+  transition: background var(--transition), border-color var(--transition);
+}
+.support-icon::before,
+.support-icon::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 10px; height: 1.5px;
+  background: var(--gold);
+  transform: translate(-50%, -50%);
+  transition: transform var(--transition), background var(--transition);
+}
+.support-icon::after { transform: translate(-50%, -50%) rotate(90deg); }
+.support-item.is-open .support-icon { background: var(--gold); border-color: var(--gold); }
+.support-item.is-open .support-icon::before,
+.support-item.is-open .support-icon::after { background: var(--white); }
+.support-item.is-open .support-icon::after { transform: translate(-50%, -50%) rotate(0deg); }
+
+.support-detail {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--gray-line);
+  animation: support-reveal 0.3s ease;
+}
+.support-item .support-detail p { color: var(--charcoal); font-size: 14.5px; line-height: 1.7; }
+@keyframes support-reveal {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: none; }
+}
+.support-item.is-open {
+  border-color: rgba(182, 144, 63, 0.45);
+  border-top-color: var(--gold);
+  box-shadow: 0 22px 44px rgba(24, 22, 20, 0.12);
 }
 .support-item p {
   font-size: 14.5px;
