@@ -541,6 +541,8 @@ body.projects-page {
   line-height: 1.45;
   color: var(--navy);
 }
+/* four results read better as a 2x2 block than as a wrapped row of three */
+.case-results-row:has(> :nth-child(4)) { grid-template-columns: repeat(2, 1fr); }
 .case-results-note {
   font-size: 11.5px;
   color: var(--gray-mid);
