@@ -442,3 +442,60 @@ body.projects-page {
   .case-study .carousel-prev { left: 24px; }
   .case-study .carousel-next { right: 24px; }
 }
+
+/* ---------- Project overview grid (top of page) ---------- */
+.project-index { padding: 64px 0 72px; background: var(--wash-gray); border-bottom: 1px solid var(--gray-line); }
+.project-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+.project-tile {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 1px solid var(--gray-line);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(24, 22, 20, 0.05);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+/* same grow-and-lift hover as the other cards on the site */
+.project-tile:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 22px 44px rgba(24, 22, 20, 0.12);
+  border-color: var(--gold);
+}
+.project-tile-img { aspect-ratio: 16 / 10; background: var(--soft-gray); overflow: hidden; }
+.project-tile-img img,
+.project-tile-img video { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+.project-tile-body { padding: 16px 18px 18px; }
+.project-tile-meta {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.project-tile-num { color: var(--gray-mid); margin-right: 4px; }
+.project-tile h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.3;
+  color: var(--navy);
+  margin: 0;
+}
+@media (max-width: 1024px) { .project-tiles { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) {
+  .project-index { padding: 48px 0 56px; }
+  .project-tiles { gap: 14px; }
+  .project-tile-body { padding: 12px 12px 14px; }
+  .project-tile h3 { font-size: 15px; }
+  .project-tile-meta { font-size: 10px; letter-spacing: 0.08em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-tile, .project-tile:hover { transition: none; transform: none; }
+}
