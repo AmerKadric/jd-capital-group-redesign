@@ -275,7 +275,7 @@
 }
 
 /* ---------- Closing call to action ---------- */
-.services-cta { background: var(--wash); text-align: center; }
+.services-cta { background: var(--wash-gray); text-align: center; }
 .services-cta .section-title { margin-bottom: 12px; }
 .services-cta .lead-text { margin: 0 auto 28px; }
 .services-cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
@@ -359,7 +359,7 @@
 
 /* Section shades alternate down the page: results (light), fit (gray),
    capabilities (light), who we help (gray), how we work (light),
-   testimonial (gray), get started (light). */
+   get started (gray). */
 
 /* ---------- Results strip (reuses the homepage .why-stat cards) ---------- */
 .services-proof { background: var(--wash); padding: 56px 0; }
