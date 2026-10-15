@@ -25,8 +25,8 @@ function initProjectsPage() {
     'royal-oak-roast': {
       name: 'Royal Oak Roast',
       images: [
-        { src: 'assets/royal-oak-roast/sign.webp', label: 'RO Wordmark' },
         { src: 'assets/royal-oak-roast/storefront.webp', label: 'Storefront' },
+        { src: 'assets/royal-oak-roast/sign.webp', label: 'RO Wordmark' },
         { src: 'assets/royal-oak-roast/interior.webp', label: 'Interior Counter' },
         { src: 'assets/royal-oak-roast/wall.webp', label: 'Brand Wall' },
         { src: 'assets/royal-oak-roast/counter.webp', label: 'Counter Seating' }
