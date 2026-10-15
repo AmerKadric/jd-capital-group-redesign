@@ -523,6 +523,17 @@ body.projects-page {
   border-radius: 4px;
   padding: 14px 14px 12px;
   box-shadow: 0 8px 22px rgba(24, 22, 20, 0.05);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+/* Same grow-and-lift hover as the other cards on the site. */
+.case-result:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 18px 38px rgba(24, 22, 20, 0.12);
+  border-color: rgba(182, 144, 63, 0.45);
+  border-top-color: var(--gold);
+}
+@media (prefers-reduced-motion: reduce) {
+  .case-result, .case-result:hover { transition: none; transform: none; }
 }
 .case-result-value {
   display: block;
