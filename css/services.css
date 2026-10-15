@@ -211,55 +211,67 @@
   .support-title { margin-bottom: 36px; }
 }
 
-/* ---------- How We Work ---------- */
+/* ---------- How We Work: a connected timeline (not cards) ----------
+   Gold numbered circles joined by a thin line; horizontal on desktop,
+   vertical with the line down the left on narrow screens. */
 .process-section { background: var(--wash); }
-.process-head { max-width: 680px; margin-bottom: 44px; }
+.process-head { max-width: 680px; margin-bottom: 48px; }
 .process-steps {
+  position: relative;
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  counter-reset: step;
+  gap: 32px;
 }
-.process-step {
-  position: relative;
-  background: var(--white);
-  border: 1px solid var(--gray-line);
-  border-top: 3px solid var(--gold);
-  border-radius: 4px;
-  padding: 28px 24px 26px;
-  box-shadow: 0 10px 28px rgba(24, 22, 20, 0.05);
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+/* the connecting line, running between the first and last circle centers */
+.process-steps::before {
+  content: "";
+  position: absolute;
+  top: 30px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), rgba(182, 144, 63, 0.35));
 }
-.process-step:hover {
-  transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 22px 44px rgba(24, 22, 20, 0.12);
-  border-color: rgba(182, 144, 63, 0.45);
-  border-top-color: var(--gold);
-}
+.process-step { position: relative; text-align: center; padding: 0 6px; }
 .process-num {
-  display: block;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px; height: 60px;
+  margin: 0 auto 22px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--white);
   font-family: var(--font-serif);
   font-weight: 600;
-  font-size: 36px;
-  line-height: 1;
-  color: var(--gold);
-  margin-bottom: 14px;
+  font-size: 22px;
+  box-shadow: 0 0 0 6px var(--white), 0 10px 24px rgba(182, 144, 63, 0.35);
+  transition: transform var(--transition), background var(--transition);
 }
+.process-step:hover .process-num { transform: scale(1.1); background: var(--navy); }
 .process-step h3 {
   font-family: var(--font-serif);
   font-weight: 600;
-  font-size: 21px;
+  font-size: 22px;
   color: var(--navy);
   margin: 0 0 8px;
 }
-.process-step p { font-size: 14.5px; line-height: 1.65; color: var(--gray-mid); margin: 0; }
-@media (max-width: 1024px) { .process-steps { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 560px) { .process-steps { grid-template-columns: 1fr; } }
+.process-step p { font-size: 14.5px; line-height: 1.65; color: var(--gray-mid); margin: 0 auto; max-width: 250px; }
+@media (max-width: 900px) {
+  .process-steps { grid-template-columns: 1fr; gap: 30px; }
+  .process-steps::before { top: 30px; bottom: 30px; left: 29px; right: auto; width: 2px; height: auto;
+    background: linear-gradient(180deg, var(--gold), rgba(182, 144, 63, 0.35)); }
+  .process-step { text-align: left; padding: 4px 0 0 88px; min-height: 60px; }
+  .process-num { position: absolute; left: 0; top: 0; margin: 0; }
+  .process-step p { max-width: none; }
+}
 @media (prefers-reduced-motion: reduce) {
-  .process-step, .process-step:hover { transition: none; transform: none; }
+  .process-num, .process-step:hover .process-num { transition: none; transform: none; }
 }
 
 /* ---------- Closing call to action ---------- */
@@ -281,7 +293,9 @@
 .support-proof:hover { color: var(--gold); }
 @media (max-width: 1024px) { .support-proof { margin: -4px 0 18px; font-size: 13.5px; } }
 
-/* ---------- Who We Help ---------- */
+/* ---------- Who We Help: photo cards ----------
+   Each card uses its matching project photo (file as-is) as a background,
+   darkened toward the bottom so the white text reads. */
 .industries-section { background: var(--wash-gray); }
 .industry-cards {
   display: grid;
@@ -289,41 +303,58 @@
   gap: 22px;
 }
 .industry-card {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  background: var(--white);
-  border: 1px solid var(--gray-line);
-  border-top: 3px solid var(--gold);
-  border-radius: 4px;
-  padding: 30px 28px 26px;
-  box-shadow: 0 10px 28px rgba(24, 22, 20, 0.05);
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  min-height: 380px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--navy-deep);
+  box-shadow: 0 16px 40px rgba(24, 22, 20, 0.12);
+  transition: transform var(--transition), box-shadow var(--transition);
 }
-.industry-card:hover {
-  transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 22px 44px rgba(24, 22, 20, 0.12);
-  border-color: rgba(182, 144, 63, 0.45);
-  border-top-color: var(--gold);
+.industry-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.industry-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(13, 11, 10, 0) 30%, rgba(13, 11, 10, 0.55) 60%, rgba(13, 11, 10, 0.9) 100%);
+}
+.industry-card-body {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding: 28px 26px 24px;
 }
 .industry-card h3 {
   font-family: var(--font-serif);
   font-weight: 600;
-  font-size: 22px;
-  color: var(--navy);
-  margin: 0 0 10px;
+  font-size: 24px;
+  color: var(--white);
+  margin: 0 0 8px;
 }
-.industry-card p { font-size: 14.5px; line-height: 1.65; color: var(--gray-mid); margin: 0 0 20px; }
+.industry-card p { font-size: 14.5px; line-height: 1.6; color: rgba(255, 255, 255, 0.88); margin: 0 0 16px; }
 .industry-card span {
-  margin-top: auto;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-light);
 }
-@media (max-width: 900px) { .industry-cards { grid-template-columns: 1fr; } }
+.industry-card:hover { transform: translateY(-4px); box-shadow: 0 26px 54px rgba(24, 22, 20, 0.22); }
+.industry-card:hover .industry-card-img { transform: scale(1.06); }
+@media (max-width: 900px) {
+  .industry-cards { grid-template-columns: 1fr; }
+  .industry-card { min-height: 300px; }
+}
 @media (prefers-reduced-motion: reduce) {
-  .industry-card, .industry-card:hover { transition: none; transform: none; }
+  .industry-card, .industry-card:hover, .industry-card-img, .industry-card:hover .industry-card-img { transition: none; transform: none; }
 }
 
 /* Section shades alternate down the page: results (light), fit (gray),
