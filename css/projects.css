@@ -444,6 +444,8 @@ body.projects-page {
 }
 
 /* ---------- Project overview grid (top of page) ---------- */
+/* link target for the help menu's "See our projects"; clears the fixed header */
+#all-projects { scroll-margin-top: 40px; }
 .project-index { padding: 64px 0 72px; background: var(--wash-gray); border-bottom: 1px solid var(--gray-line); }
 .project-tiles {
   display: grid;
