@@ -500,3 +500,45 @@ body.projects-page {
 @media (prefers-reduced-motion: reduce) {
   .project-tile, .project-tile:hover { transition: none; transform: none; }
 }
+
+/* ---------- Case study results ---------- */
+.case-results { margin: 4px 0 26px; }
+.case-results-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 10px;
+}
+.case-results-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.case-result {
+  background: var(--white);
+  border: 1px solid var(--gray-line);
+  border-top: 3px solid var(--gold);
+  border-radius: 4px;
+  padding: 14px 14px 12px;
+  box-shadow: 0 8px 22px rgba(24, 22, 20, 0.05);
+}
+.case-result-value {
+  display: block;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.15;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.case-result-value small { font-size: 0.55em; font-weight: 600; }
+.case-result-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--navy);
+}
+@media (max-width: 480px) { .case-results-row { grid-template-columns: 1fr; } }
