@@ -212,7 +212,7 @@
 }
 
 /* ---------- How We Work ---------- */
-.process-section { background: var(--wash); }
+.process-section { background: var(--wash-gray); }
 .process-head { max-width: 680px; margin-bottom: 44px; }
 .process-steps {
   list-style: none;
@@ -263,7 +263,65 @@
 }
 
 /* ---------- Closing call to action ---------- */
-.services-cta { background: var(--wash-gray); text-align: center; }
+.services-cta { background: var(--wash); text-align: center; }
 .services-cta .section-title { margin-bottom: 12px; }
 .services-cta .lead-text { margin: 0 auto 28px; }
 .services-cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* ---------- "See it in action" link inside each capability ---------- */
+.support-proof {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+  margin: -6px 0 26px;
+  transition: color var(--transition);
+}
+.support-proof-label { color: var(--gold); text-transform: uppercase; letter-spacing: 0.08em; font-size: 12px; font-weight: 700; }
+.support-proof:hover { color: var(--gold); }
+@media (max-width: 1024px) { .support-proof { margin: -4px 0 18px; font-size: 13.5px; } }
+
+/* ---------- Who We Help ---------- */
+.industries-section { background: var(--wash); }
+.industry-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+.industry-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  border: 1px solid var(--gray-line);
+  border-top: 3px solid var(--gold);
+  border-radius: 4px;
+  padding: 30px 28px 26px;
+  box-shadow: 0 10px 28px rgba(24, 22, 20, 0.05);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.industry-card:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 22px 44px rgba(24, 22, 20, 0.12);
+  border-color: rgba(182, 144, 63, 0.45);
+  border-top-color: var(--gold);
+}
+.industry-card h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--navy);
+  margin: 0 0 10px;
+}
+.industry-card p { font-size: 14.5px; line-height: 1.65; color: var(--gray-mid); margin: 0 0 20px; }
+.industry-card span {
+  margin-top: auto;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+@media (max-width: 900px) { .industry-cards { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) {
+  .industry-card, .industry-card:hover { transition: none; transform: none; }
+}
