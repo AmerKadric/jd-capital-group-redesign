@@ -18,7 +18,8 @@ router layers smooth in-app navigation on top without changing that.
 | Home | `index.html` | Hero photo carousel, About/What We Do teaser, Why Us, Contact form |
 | About | `about.html` | Company mission, "Areas of Focus," founder profile (Jesse Dhillon) |
 | Projects | `projects.html` | Six featured case studies, each with its own photo carousel or video |
-| Clients | `clients.html` | Lady Jane's spotlight + testimonial, coffee/hospitality brand family, Mark V Homes (real estate), capability explorer; filter tabs per category |
+| Clients | `clients.html` | Lady Jane's spotlight + testimonial, Roast coffee family, Mark V Homes (real estate); filter tabs per category |
+| Services | `services.html` | Capability explorer (nine services; list + panel on desktop, tap-to-open on mobile), How We Work steps, closing call to action. In the header nav in place of Why Us |
 | Privacy | `privacy.html` | Privacy policy (form data, Web3Forms, Vercel, Google Maps embed); linked from every footer |
 | Not found | `404.html` | Branded 404 (Vercel serves it for any unknown URL); links home, to the consultation form, and to the main pages. All paths are root-absolute since it can render at any depth. |
 
@@ -120,7 +121,7 @@ leave the site in a broken state.
 Every page has a gold help button in the bottom-right corner (markup just before `#backToTop`
 in each page, styles at the end of `css/style.css`, behavior in `initChrome()` in `js/main.js`).
 It opens a small menu of shortcuts: schedule a consultation, what we do
-(`/clients#capabilities`), why work with us (`/#why-us`), common questions (`/#faq`), projects (`/projects#all-projects`), clients, and Jesse's profile (`/about#founder`). It's plain links, so no chat
+(`/services#capabilities`), why work with us (`/#why-us`), common questions (`/#faq`), projects (`/projects#all-projects`), clients, and Jesse's profile (`/about#founder`). It's plain links, so no chat
 service, account, or visitor data is involved. Like the header and footer it lives outside
 `<main>`, so it stays put during client-side navigation. To change a shortcut, edit the
 `.guide-links` list in every page (including 404.html). The back-to-top button sits just above it.

@@ -40,6 +40,12 @@
       trailingJs: ['js/clients.js'],
       inits: ['initClientsPage']
     },
+    'services.html': {
+      css: ['css/about.css', 'css/services.css'], // About hero styles + the page's own
+      js: [],
+      trailingJs: ['js/services.js'],
+      inits: ['initServicesPage']
+    },
     'privacy.html': {
       css: ['css/about.css'], // reuses the About hero styles
       js: [],
@@ -170,7 +176,8 @@
       // matching the original site where the homepage had no nav item
       // marked active either.
       if (rawHref.includes('#')) { a.classList.remove('active'); return; }
-      a.classList.toggle('active', rawHref === key);
+      // Hrefs are clean paths ("/about"); compare page keys, not raw strings.
+      a.classList.toggle('active', keyForPath(new URL(rawHref, location.href).pathname) === key);
     });
   }
 
