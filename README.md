@@ -120,7 +120,7 @@ leave the site in a broken state.
 
 Every page has a gold help button in the bottom-right corner (markup just before `#backToTop`
 in each page, styles at the end of `css/style.css`, behavior in `initChrome()` in `js/main.js`).
-It opens a small menu of shortcuts: schedule a consultation, what we do
+It opens a small menu of shortcuts: schedule a consultation, our services
 (`/services#capabilities`), why work with us (`/#why-us`), common questions (`/#faq`), projects (`/projects#all-projects`), clients, and Jesse's profile (`/about#founder`). It's plain links, so no chat
 service, account, or visitor data is involved. Like the header and footer it lives outside
 `<main>`, so it stays put during client-side navigation. To change a shortcut, edit the
