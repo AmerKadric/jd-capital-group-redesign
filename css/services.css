@@ -8,7 +8,7 @@
 .support-section {
   position: relative;
   overflow: hidden;
-  background: var(--wash-gray);
+  background: var(--wash);
   padding: 110px 0;
   text-align: center;
 }
@@ -212,7 +212,7 @@
 }
 
 /* ---------- How We Work ---------- */
-.process-section { background: var(--wash-gray); }
+.process-section { background: var(--wash); }
 .process-head { max-width: 680px; margin-bottom: 44px; }
 .process-steps {
   list-style: none;
@@ -282,7 +282,7 @@
 @media (max-width: 1024px) { .support-proof { margin: -4px 0 18px; font-size: 13.5px; } }
 
 /* ---------- Who We Help ---------- */
-.industries-section { background: var(--wash); }
+.industries-section { background: var(--wash-gray); }
 .industry-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -324,4 +324,78 @@
 @media (max-width: 900px) { .industry-cards { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) {
   .industry-card, .industry-card:hover { transition: none; transform: none; }
+}
+
+/* Section shades alternate down the page: results (light), fit (gray),
+   capabilities (light), who we help (gray), how we work (light),
+   testimonial (gray), get started (light). */
+
+/* ---------- Results strip (reuses the homepage .why-stat cards) ---------- */
+.services-proof { background: var(--wash); padding: 56px 0; }
+.services-stats { grid-template-columns: repeat(4, 1fr); margin: 0; }
+@media (max-width: 1024px) { .services-stats { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .services-stats { grid-template-columns: 1fr; } }
+
+/* ---------- Is this a good fit? ---------- */
+.fit-section { background: var(--wash-gray); }
+.fit-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 56px;
+  align-items: center;
+}
+.fit-intro .section-title { margin-bottom: 22px; }
+.fit-link {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--gold);
+  border-bottom: 1px solid rgba(182, 144, 63, 0.4);
+  padding-bottom: 2px;
+  transition: color var(--transition), border-color var(--transition);
+}
+.fit-link:hover { color: var(--navy); border-color: var(--navy); }
+.fit-list {
+  list-style: none;
+  margin: 0;
+  padding: 10px 28px;
+  background: var(--white);
+  border: 1px solid var(--gray-line);
+  border-top: 3px solid var(--gold);
+  border-radius: 4px;
+  box-shadow: 0 16px 40px rgba(24, 22, 20, 0.06);
+}
+.fit-list li {
+  position: relative;
+  padding: 16px 0 16px 40px;
+  font-size: 15.5px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--navy);
+}
+.fit-list li + li { border-top: 1px solid var(--gray-line); }
+/* gold check in a circle */
+.fit-list li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 16px;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.fit-list li::after {
+  content: "";
+  position: absolute;
+  left: 8px; top: 21px;
+  width: 6px; height: 11px;
+  border: solid var(--white);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+@media (max-width: 1024px) {
+  .fit-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 560px) {
+  .fit-list { padding: 6px 18px; }
+  .fit-list li { font-size: 15px; }
 }
