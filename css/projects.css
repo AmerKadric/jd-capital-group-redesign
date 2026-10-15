@@ -560,3 +560,16 @@ body.projects-page {
   margin: 8px 0 0;
 }
 @media (max-width: 480px) { .case-results-row { grid-template-columns: 1fr; } }
+
+/* "Scope of work" label over the service tags, which now sit between the
+   description and the Results (what we did, then what it achieved). */
+.case-scope-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 4px 0 10px;
+}
+.case-head .project-scope + .case-results { margin-top: 24px; }
+.case-head .case-results { margin-bottom: 0; }
