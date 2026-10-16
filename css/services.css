@@ -349,23 +349,6 @@
 }
 .industry-card:hover { transform: translateY(-4px); box-shadow: 0 26px 54px rgba(24, 22, 20, 0.22); }
 .industry-card:hover .industry-card-img { transform: scale(1.06); }
-/* The studio photo is square while the cards are tall, so a full-card
-   crop hid the desk behind the text. This card stacks instead: the whole
-   photo on top (desk and screens centered, nothing covering it), the text
-   below on a dark base. Row-mates stretch to the same height. */
-.industry-card--studio { flex-direction: column; background: #0b0f17; }
-.industry-card--studio .industry-card-img {
-  position: relative;
-  inset: auto;
-  flex: 0 0 auto;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  object-position: center;
-}
-.industry-card--studio::after { display: none; } /* photo and text don't overlap, so no fade needed */
-.industry-card--studio .industry-card-body { margin-top: 0; padding-top: 22px; }
 /* Four industries: four across on wide screens, 2x2 on mid widths. */
 .industry-cards { grid-template-columns: repeat(4, 1fr); gap: 20px; }
 @media (max-width: 1180px) { .industry-cards { grid-template-columns: repeat(2, 1fr); } }
