@@ -1449,7 +1449,7 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Why Us: proof-point stats ---------- */
 .why-stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   margin: 8px 0 48px;
 }
@@ -1490,6 +1490,7 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.5;
   color: var(--navy);
 }
+@media (max-width: 1024px) { .why-stats { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .why-stats { grid-template-columns: 1fr; } }
 
 /* ---------- Homepage "Trusted by" logo strip ---------- */
