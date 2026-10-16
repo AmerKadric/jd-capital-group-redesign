@@ -110,7 +110,25 @@ body.clients-page main {
 .featured-client { scroll-margin-top: 110px; }
 .featured-client-section.filtered-out,
 .hospitality-section.filtered-out,
-.realestate-section.filtered-out { display: none; }
+.realestate-section.filtered-out,
+.media-section.filtered-out { display: none; }
+/* light / gray alternation continues: ... real estate (light), media (gray) */
+.media-section { background: var(--wash-gray); }
+/* "Past engagement" note for clients JD Capital Group no longer works with */
+.client-badge {
+  display: block;
+  width: fit-content;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--navy);
+  background: rgba(182, 144, 63, 0.12);
+  border: 1px solid rgba(182, 144, 63, 0.35);
+  border-radius: 20px;
+  padding: 5px 12px;
+  margin: 2px 0 12px;
+}
 
 
 .featured-client {

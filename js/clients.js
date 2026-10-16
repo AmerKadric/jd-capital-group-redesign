@@ -7,7 +7,8 @@ function initClientsPage() {
   const filterSections = {
     grooming: document.querySelector('.featured-client-section'),
     hospitality: document.querySelector('.hospitality-section'),
-    realestate: document.querySelector('.realestate-section')
+    realestate: document.querySelector('.realestate-section'),
+    media: document.querySelector('.media-section')
   };
 
   filterTabs.forEach(tab => {
