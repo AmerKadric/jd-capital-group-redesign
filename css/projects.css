@@ -573,3 +573,21 @@ body.projects-page {
 }
 .case-head .project-scope + .case-results { margin-top: 24px; }
 .case-head .case-results { margin-bottom: 0; }
+
+/* "Past engagement" tag on case studies for clients JD Capital Group no
+   longer works with (same look as on the Clients page). */
+.case-head .client-badge {
+  display: block;
+  width: fit-content;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--navy);
+  background: rgba(182, 144, 63, 0.12);
+  border: 1px solid rgba(182, 144, 63, 0.35);
+  border-radius: 20px;
+  padding: 5px 12px;
+  margin: 0 0 12px;
+}
+.carousel-arrow[hidden], .carousel-dots[hidden], .carousel-thumbs[hidden] { display: none; }

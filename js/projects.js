@@ -2,6 +2,14 @@
 function initProjectsPage() {
 
   const galleries = {
+    'woodward-sports': {
+      name: 'Woodward Sports Network',
+      images: [
+        { src: 'assets/woodward-sports/anchor-desk.webp', label: 'Anchor Desk' },
+        { src: 'assets/woodward-sports/studio-set.webp', label: 'Studio Set' },
+        { src: 'assets/woodward-sports/studio.webp', label: 'Broadcast Studio' }
+      ]
+    },
     'lady-janes': {
       name: "Lady Jane's Haircuts for Men",
       images: [
@@ -78,6 +86,12 @@ function initProjectsPage() {
     const captionEl = carouselEl.querySelector('[data-caption]');
 
     let index = 0;
+
+    // A one-photo gallery has nothing to page through: hide its controls.
+    if (slides.length < 2) {
+      [prevBtn, nextBtn, carouselEl.querySelector('.carousel-dots'), carouselEl.querySelector('.carousel-thumbs')]
+        .forEach(el => { if (el) el.hidden = true; });
+    }
 
     function updateActive(i) {
       index = i;
