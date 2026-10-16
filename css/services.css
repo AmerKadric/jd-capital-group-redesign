@@ -352,18 +352,6 @@
 /* Four industries: four across on wide screens, 2x2 on mid widths. */
 .industry-cards { grid-template-columns: repeat(4, 1fr); gap: 20px; }
 @media (max-width: 1180px) { .industry-cards { grid-template-columns: repeat(2, 1fr); } }
-/* Media has no project photo, so its card shows the client's logo (file
-   as-is, in its own colors) on a dark panel instead. */
-.industry-card--logo { background: var(--navy-deep); }
-.industry-card--logo .industry-card-img {
-  inset: 26px 0 auto;
-  height: 34%;
-  width: 100%;
-  object-fit: contain;
-}
-.industry-card--logo::after {
-  background: linear-gradient(180deg, rgba(13, 11, 10, 0) 45%, rgba(13, 11, 10, 0.5) 100%);
-}
 @media (max-width: 900px) {
   .industry-cards { grid-template-columns: 1fr; }
   .industry-card { min-height: 300px; }
