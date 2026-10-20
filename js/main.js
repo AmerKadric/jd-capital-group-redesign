@@ -69,53 +69,11 @@ function initChrome() {
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 }
 
-// JD Capital Group — homepage <main> content (hero carousel, contact form).
+// JD Capital Group — homepage <main> content (contact form).
 // Exposed on window so router.js can re-run it every time the homepage's
 // <main> is swapped back in via client-side navigation, not just on a real
 // page load.
 function initHomeContent() {
-
-  // ---- Hero photo carousel (rotates through real project photos) ----
-  const heroCarousel = document.getElementById('heroCarousel');
-
-  if (heroCarousel) {
-    const slides = [...heroCarousel.querySelectorAll('.hero-carousel-slide')];
-    const dots = [...heroCarousel.querySelectorAll('.hero-carousel-dot')];
-    const label = document.getElementById('heroCarouselLabel');
-    const captions = dots.map(dot => dot.getAttribute('aria-label').replace('Show ', ''));
-    const intervalMs = 2000;
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    let index = 0;
-    let timer = null;
-
-    function show(i) {
-      index = (i + slides.length) % slides.length;
-      slides.forEach((slide, si) => slide.classList.toggle('is-active', si === index));
-      dots.forEach((dot, di) => dot.classList.toggle('is-active', di === index));
-      if (label) label.textContent = captions[index];
-    }
-
-    function start() {
-      if (reducedMotion || slides.length < 2) return;
-      stop();
-      timer = setInterval(() => show(index + 1), intervalMs);
-    }
-    function stop() {
-      if (timer) clearInterval(timer);
-      timer = null;
-    }
-
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => { show(i); start(); });
-    });
-
-    heroCarousel.addEventListener('mouseenter', stop);
-    heroCarousel.addEventListener('mouseleave', start);
-
-    show(0);
-    start();
-  }
 
   // ---- Contact form ----
   // Sends straight to Jesse's inbox through Web3Forms (the public access key

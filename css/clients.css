@@ -5,34 +5,9 @@
    a capability explorer. Logos sit on "matted" logo panels.
    ========================================================= */
 
-/* Archivo — a sharper, more structured grotesque than the site's default
-   Public Sans, used only on this page. Public Sans is a neutral,
-   humanist sans (soft, rounded terminals); Archivo is a tighter,
-   higher-contrast grotesque more associated with premium editorial and
-   corporate-finance branding, self-hosted the same way as the rest of
-   the site's fonts for a consistent zero-flicker load. */
-@font-face {
-  font-family: 'Archivo';
-  font-style: normal;
-  font-weight: 400 800;
-  font-display: optional;
-  src: url('../assets/fonts/archivo.woff2') format('woff2');
-}
-
 body.clients-page {
   background: var(--white);
   color: var(--charcoal);
-}
-
-/* Scoped to <main> only — NOT to body — so the persistent header/footer
-   (see js/router.js and the note in style.css) never inherit this and
-   never visibly change font when you navigate to or from this page.
-   font-family is set directly here (not just the --font-sans variable)
-   so every descendant inherits Archivo even where a selector doesn't
-   explicitly reference var(--font-sans) itself. */
-body.clients-page main {
-  --font-sans: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-family: var(--font-sans);
 }
 
 /* ---------- Page hero ---------- */
@@ -42,24 +17,8 @@ body.clients-page main {
   background: var(--hero-scrim-inner);
   overflow: hidden;
 }
-.clients-hero .hero-bg { position: absolute; inset: 0; z-index: 0; }
-.clients-hero .hero-lines { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.3; }
-.clients-hero .hero-lines line { stroke: var(--gold); stroke-width: 1; }
-.clients-hero .hero-glow {
-  position: absolute;
-  top: -20%; right: -5%;
-  width: 55%; height: 140%;
-  background: radial-gradient(circle, rgba(182,144,63,0.14), transparent 70%);
-  filter: blur(40px);
-}
 .clients-hero .container { position: relative; z-index: 1; }
-/* The hero matches the other inner pages exactly, so it opts back out of
-   this page's Archivo override (eyebrow + intro use the site's Public Sans)
-   and the title uses the same weight/spacing as About and Projects. */
-.clients-hero {
-  --font-sans: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  font-family: var(--font-sans);
-}
+/* The hero title uses the same weight/spacing as About and Projects. */
 .clients-hero-title {
   font-family: var(--font-serif);
   font-weight: 600;
@@ -92,14 +51,14 @@ body.clients-page main {
   background: transparent;
   border: 1px solid var(--gray-line);
   padding: 10px 22px;
-  border-radius: 20px;
+  border-radius: 2px;
   cursor: pointer;
   transition: all var(--transition);
 }
 .filter-tab:hover { color: var(--navy); border-color: rgba(182,144,63,0.5); }
 .filter-tab.active {
-  background: var(--gold);
-  border-color: var(--gold);
+  background: var(--gold-ink);
+  border-color: var(--gold-ink);
   color: var(--white);
 }
 
@@ -125,7 +84,7 @@ body.clients-page main {
   color: var(--navy);
   background: rgba(182, 144, 63, 0.12);
   border: 1px solid rgba(182, 144, 63, 0.35);
-  border-radius: 20px;
+  border-radius: 2px;
   padding: 5px 12px;
   margin: 2px 0 12px;
 }
@@ -137,7 +96,7 @@ body.clients-page main {
   background: var(--white);
   border: 1px solid var(--gray-line);
   border-top: 3px solid var(--gold);
-  border-radius: 6px;
+  border-radius: 4px;
   box-shadow: 0 24px 60px rgba(24, 22, 20,0.07);
   overflow: hidden;
 }
@@ -168,7 +127,7 @@ body.clients-page main {
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-ink);
   margin-bottom: 12px;
 }
 .featured-client-body h2 {
@@ -199,7 +158,7 @@ body.clients-page main {
   background: rgba(182, 144, 63, 0.08);
   border: 1px solid rgba(182, 144, 63, 0.3);
   padding: 7px 14px;
-  border-radius: 20px;
+  border-radius: 2px;
 }
 
 .client-testimonial {
@@ -223,7 +182,7 @@ body.clients-page main {
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-ink);
 }
 
 /* ---------- Hospitality client grid ---------- */

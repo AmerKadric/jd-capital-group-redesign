@@ -15,16 +15,6 @@ body.about-page {
   background: var(--hero-scrim-inner);
   overflow: hidden;
 }
-.about-hero .hero-bg { position: absolute; inset: 0; z-index: 0; }
-.about-hero .hero-lines { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.3; }
-.about-hero .hero-lines line { stroke: var(--gold); stroke-width: 1; }
-.about-hero .hero-glow {
-  position: absolute;
-  top: -20%; right: -5%;
-  width: 55%; height: 140%;
-  background: radial-gradient(circle, rgba(182,144,63,0.14), transparent 70%);
-  filter: blur(40px);
-}
 .about-hero .container { position: relative; z-index: 1; }
 .about-hero-title {
   font-family: var(--font-serif);
@@ -38,7 +28,6 @@ body.about-page {
 
 /* ---------- Mission ---------- */
 .mission-section { position: relative; overflow: hidden; background: var(--wash-gray); }
-.mission-glow { top: -60px; left: -60px; width: 400px; height: 400px; }
 .mission-grid {
   position: relative;
   z-index: 1;
@@ -61,37 +50,34 @@ body.about-page {
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-ink);
   margin: 0 0 20px;
 }
-.focus-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.focus-chips span {
-  font-size: 13px;
-  font-weight: 600;
+/* A short summary that points to the full capability list on Services,
+   rather than repeating it here. */
+.mission-focus-text {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.5;
   color: var(--navy);
-  background: rgba(182, 144, 63, 0.07);
-  border: 1px solid rgba(182, 144, 63, 0.28);
-  padding: 8px 15px;
-  border-radius: 20px;
+  margin: 0 0 22px;
 }
+.mission-focus-link {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--navy);
+  transition: color var(--transition);
+}
+.mission-focus-link:hover { color: var(--gold-ink); }
 
 /* ---------- Founder ---------- */
 .founder-section {
   position: relative;
   background: var(--wash);
 }
-.founder-section-clip {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  z-index: 0;
-  pointer-events: none;
-}
-.founder-glow { bottom: -80px; right: -80px; width: 440px; height: 440px; }
 .founder-section .container { position: relative; z-index: 1; }
 
 .founder-grid {
@@ -107,7 +93,7 @@ body.about-page {
   background: var(--soft-gray);
   border: 1px solid var(--gray-line);
   border-top: 3px solid var(--gold);
-  border-radius: 6px;
+  border-radius: 4px;
   padding: 32px 28px;
   text-align: center;
 }
@@ -136,7 +122,7 @@ body.about-page {
 }
 .founder-title {
   font-size: 13px;
-  color: var(--gold);
+  color: var(--gold-ink);
   font-weight: 600;
   margin: 0 0 16px;
 }
@@ -227,14 +213,24 @@ body.about-page {
   font-size: 15.5px;
   margin: 0 0 16px;
 }
+/* Closing statement: set apart by a short gold rule above, not an
+   italic block with a left border. */
 .founder-close {
   font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 18px;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.5;
   color: var(--navy) !important;
-  border-left: 3px solid var(--gold);
-  padding-left: 18px;
-  margin-top: 28px !important;
+  margin-top: 32px !important;
+  padding-top: 22px;
+  position: relative;
+}
+.founder-close::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 48px; height: 2px;
+  background: var(--gold);
 }
 
 /* ---------- Responsive ---------- */

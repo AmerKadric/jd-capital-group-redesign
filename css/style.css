@@ -44,6 +44,10 @@
   --gray-line: #e4e6ea;
   --gold: #b6903f;
   --gold-light: #d8b876;
+  /* Deeper gold for small type on light sections and for buttons with
+     white text: 4.8:1 against white, where --gold is only 3:1. The logo,
+     large numerals, and decoration keep --gold. */
+  --gold-ink: #8f6d2c;
 
   /* Translucent section fills that let the fixed skyline photo show
      through softly while keeping body text fully legible. */
@@ -123,43 +127,12 @@ a { color: inherit; text-decoration: none; }
   .container { padding: 0 24px; }
 }
 
-/* =========================================================
-   AMBIENT DEPTH LAYERS
-   Reusable background treatments — drifting grid texture and
-   soft glow blobs — used across every page to add visual depth
-   without stock photography.
-   ========================================================= */
-
-/* Faint static grid texture, sits behind all page content */
-.grid-ambient {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(182, 144, 63, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(182, 144, 63, 0.05) 1px, transparent 1px);
-  background-size: 64px 64px;
-}
-
-/* Soft blurred gradient blobs for restrained depth */
-.glow-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(60px);
-  pointer-events: none;
-  z-index: 0;
-}
-.glow-blob.gold { background: radial-gradient(circle, rgba(182,144,63,0.14), transparent 70%); }
-.glow-blob.gold-soft { background: radial-gradient(circle, rgba(182,144,63,0.08), transparent 70%); }
-.glow-blob.navy { background: radial-gradient(circle, rgba(24, 22, 20,0.06), transparent 70%); }
-
 /* ---------- Typography ---------- */
 .section-eyebrow, .eyebrow {
   font-size: 13px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-ink);
   font-weight: 700;
   margin: 0 0 16px;
 }
@@ -201,9 +174,9 @@ a { color: inherit; text-decoration: none; }
 }
 
 .btn-primary {
-  background: var(--gold);
+  background: var(--gold-ink);
   color: var(--white);
-  box-shadow: 0 8px 24px rgba(182, 144, 63, 0.25);
+  box-shadow: 0 8px 24px rgba(143, 109, 44, 0.25);
 }
 .btn-primary:hover {
   background: var(--navy);
@@ -240,7 +213,7 @@ a { color: inherit; text-decoration: none; }
    chrome (see js/router.js) — they're never removed from the DOM when
    navigating between pages. Their font is pinned directly to the site's
    default sans-serif here rather than through the --font-sans variable,
-   so a page-specific font override (e.g. Clients-page-only Archivo)
+   so any page-specific font override
    can never make this shared chrome visibly change typeface when you
    navigate to or from that page — that swap is what reads as a reload. */
 .site-header, .site-footer, .back-to-top {
@@ -324,20 +297,20 @@ a { color: inherit; text-decoration: none; }
 .main-nav a.active::after { width: 100%; }
 
 .nav-cta {
-  border: 1px solid var(--gold);
+  border: 1px solid var(--gold-ink);
   padding: 10px 20px;
   border-radius: 2px;
-  color: var(--gold) !important;
+  color: var(--gold-ink) !important;
 }
 .nav-cta:hover {
-  background: var(--gold);
+  background: var(--gold-ink);
   color: var(--white) !important;
 }
 /* While the header is transparent over the photo, the button is filled
    gold so it stands out; it returns to the outline once the header turns
    white. */
 .site-header:not(.scrolled) .nav-cta {
-  background: var(--gold);
+  background: var(--gold-ink);
   color: var(--white) !important;
 }
 .site-header:not(.scrolled) .nav-cta:hover {
@@ -395,22 +368,6 @@ a { color: inherit; text-decoration: none; }
     background: linear-gradient(180deg, rgba(255,255,255,0) 86%, var(--wash) 100%);
   }
 }
-.hero-lines {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  opacity: 0.35;
-}
-.hero-lines line {
-  stroke: var(--gold);
-  stroke-width: 1;
-}
-.hero-glow {
-  position: absolute;
-  top: -10%; right: -10%;
-  width: 60%; height: 60%;
-  background: radial-gradient(circle, rgba(182,144,63,0.14), transparent 70%);
-  filter: blur(40px);
-}
 
 .hero-inner {
   position: relative;
@@ -424,8 +381,8 @@ a { color: inherit; text-decoration: none; }
 .hero .container { max-width: 1600px; }
 
 /* Corporate split layout, pushed to all four edges: small caption
-   columns flank a left-aligned text column and a large, framed
-   photo carousel — nothing centered. */
+   columns flank a left-aligned text column and an open column where
+   the skyline shows through — nothing centered. */
 .hero-grid {
   display: grid;
   grid-template-columns: minmax(110px, 130px) minmax(300px, 1fr) minmax(420px, 620px) minmax(110px, 130px);
@@ -490,101 +447,15 @@ a { color: inherit; text-decoration: none; }
 }
 
 
-/* ---------- Hero photo carousel ---------- */
-.hero-visual { position: relative; }
-
-.hero-carousel {
-  position: relative;
-  padding: 14px;
-  background: var(--white);
-  border: 3px solid var(--gold);
-  border-radius: 5px;
-  box-shadow: 0 34px 80px rgba(24, 22, 20, 0.18);
-}
-
-.hero-carousel-track {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  background: var(--soft-gray);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.hero-carousel-slide {
-  position: absolute;
-  inset: 0;
-  margin: 0;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-.hero-carousel-slide.is-active { opacity: 1; }
-.hero-carousel-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.hero-carousel-label {
-  position: absolute;
-  left: 20px;
-  bottom: 20px;
-  z-index: 2;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--navy);
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(182, 144, 63, 0.35);
-  box-shadow: 0 8px 20px rgba(24, 22, 20,0.08);
-  padding: 8px 16px;
-  border-radius: 20px;
-}
-
-.hero-carousel-dots {
-  position: absolute;
-  right: 20px;
-  bottom: 24px;
-  z-index: 2;
-  display: flex;
-  gap: 8px;
-}
-.hero-carousel-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  padding: 0;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.35);
-  cursor: pointer;
-  transition: all var(--transition);
-}
-.hero-carousel-dot.is-active {
-  background: var(--gold);
-  border-color: var(--gold);
-  transform: scale(1.25);
-}
-
-.stat-value {
-  font-family: var(--font-serif);
-  font-size: 34px;
-  color: var(--gold);
-  font-weight: 700;
-}
-.stat-label {
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--gray-mid);
-  margin-top: 4px;
-}
+/* ---------- Hero open column ----------
+   Empty grid column between the text and the right-hand captions, so the
+   skyline shows through. Not needed once the hero stacks. */
+.hero-visual { min-height: 1px; }
 
 /* =========================================================
    ABOUT + WHAT WE DO (combined)
    ========================================================= */
 .about-section { position: relative; overflow: hidden; }
-.about-glow { top: -80px; right: -80px; width: 420px; height: 420px; }
 
 .about-grid {
   position: relative;
@@ -687,7 +558,7 @@ a { color: inherit; text-decoration: none; }
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-ink);
   margin-bottom: 10px;
 }
 .work-card h3 {
@@ -724,7 +595,6 @@ a { color: inherit; text-decoration: none; }
   background: var(--wash);
 }
 .why-us-section .container { position: relative; z-index: 1; }
-.why-us-glow { top: -60px; right: 10%; width: 380px; height: 380px; }
 
 .why-list-divider {
   height: 1px;
@@ -822,7 +692,7 @@ a { color: inherit; text-decoration: none; }
   font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-ink);
   margin-bottom: 8px;
 }
 .contact-detail p { margin: 0; color: var(--charcoal); font-size: 15.5px; line-height: 1.6; }
@@ -834,13 +704,13 @@ a { color: inherit; text-decoration: none; }
   padding: 12px;
   background: var(--white);
   border: 3px solid var(--gold);
-  border-radius: 6px;
+  border-radius: 4px;
   box-shadow: 0 20px 50px rgba(24, 22, 20,0.1);
 }
 .contact-map {
   flex: 1;
   min-height: 320px;
-  border-radius: 3px;
+  border-radius: 2px;
   overflow: hidden;
   background: var(--soft-gray);
 }
@@ -984,7 +854,7 @@ a { color: inherit; text-decoration: none; }
 /* =========================================================
    RESPONSIVE
    ========================================================= */
-/* Below this, the 4-column hero (edge + text + carousel + edge)
+/* Below this, the 4-column hero (edge + text + open column + edge)
    no longer has room to breathe — drop the edge captions and keep
    a clean two-column split. */
 @media (max-width: 1360px) {
@@ -997,11 +867,11 @@ a { color: inherit; text-decoration: none; }
   /* Stacked: heading/details, then the form, then the map. */
   .contact-grid { grid-template-areas: "copy" "form" "map"; grid-template-rows: auto; }
 
-  /* Photo carousel drops below the text column, content-first; edge
-     captions reappear as a two-up row beneath everything. */
+  /* Text column goes full width; edge captions reappear as a two-up row
+     beneath it. */
   .hero-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
   .hero-main { grid-column: 1 / -1; order: 1; margin-bottom: 40px; }
-  .hero-visual { grid-column: 1 / -1; order: 2; margin-bottom: 40px; }
+  .hero-visual { display: none; }
   .hero-edge { display: flex; }
   .hero-edge-left { order: 3; }
   .hero-edge-right { order: 4; }
@@ -1052,10 +922,6 @@ a { color: inherit; text-decoration: none; }
   .contact-map { height: 300px; min-height: 0; }
 }
 
-/* The heroes' gold glow blob was ambient depth for a plain background; over
-   the skyline photo it only hazes the image, so it's switched off. */
-.hero-glow { display: none; }
-
 /* Hero type sits directly on the dark sunset photo, so it's white (the
    gold accent line lightens to --gold-light), with a soft shadow for the
    brighter patches of sky. Inner-page selectors are doubled up so they
@@ -1091,13 +957,6 @@ a { color: inherit; text-decoration: none; }
   color: var(--gold-light);
 }
 
-/* TEMPORARY: home hero carousel hidden to preview the skyline on its own.
-   Delete this block to bring the rotating photos back. visibility (not
-   display) keeps its grid column on desktop so the layout doesn't shift. */
-.hero-visual { visibility: hidden; }
-@media (max-width: 1024px) {
-  .hero-visual { display: none; }
-}
 
 /* =========================================================
    LEGIBILITY OVER THE BRIGHT PHOTO
@@ -1190,7 +1049,7 @@ a { color: inherit; text-decoration: none; }
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-ink);
   margin: 0 0 28px;
 }
 .legal h2 {
@@ -1269,7 +1128,7 @@ a { color: inherit; text-decoration: none; }
 .home-testimonial-role {
   font-size: 13px;
   font-weight: 600;
-  color: var(--gold);
+  color: var(--gold-ink);
 }
 
 /* =========================================================
@@ -1296,8 +1155,10 @@ a { color: inherit; text-decoration: none; }
   transition: background var(--transition), transform var(--transition);
 }
 .guide-toggle:hover { background: var(--navy); }
-/* Soft gold glow that pulses outward every few seconds to draw the eye.
-   Paused while the menu is open, on hover, and for reduced-motion users. */
+/* Soft gold glow that pulses outward three times shortly after the page
+   loads to draw the eye, then rests. (The button stays mounted across
+   client-side navigation, so it doesn't restart on every page.) Off while
+   the menu is open, on hover, and for reduced-motion users. */
 .guide-toggle { isolation: isolate; }
 .guide-toggle::before {
   content: "";
@@ -1306,7 +1167,7 @@ a { color: inherit; text-decoration: none; }
   z-index: -1;
   border-radius: 50%;
   background: var(--gold);
-  animation: guide-pulse 1s ease-out infinite;
+  animation: guide-pulse 1.2s ease-out 1s 3 both;
   pointer-events: none;
 }
 .guide.is-open .guide-toggle::before,
@@ -1385,7 +1246,7 @@ a { color: inherit; text-decoration: none; }
 .guide-link span:last-child { color: var(--gold); transition: transform var(--transition); }
 .guide-link:hover { background: var(--soft-gray); }
 .guide-link:hover span:last-child { transform: translateX(3px); }
-.guide-link--primary { background: var(--gold); color: var(--white); margin-bottom: 4px; }
+.guide-link--primary { background: var(--gold-ink); color: var(--white); margin-bottom: 4px; }
 .guide-link--primary span:last-child { color: var(--white); }
 .guide-link--primary:hover { background: var(--navy); }
 .guide-foot {
@@ -1444,7 +1305,7 @@ a { color: inherit; text-decoration: none; }
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-ink);
 }
 @media (max-width: 768px) { .not-found-grid { grid-template-columns: 1fr; } }
 
@@ -1513,7 +1374,7 @@ main > section.trusted-strip {
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-ink);
   margin: 0;
 }
 .trusted-logos { flex: 1; }
@@ -1583,7 +1444,7 @@ main > section.trusted-strip {
     padding: 15px 20px;
     text-align: center;
     font-size: 13px;
-    background: var(--gold);
+    background: var(--gold-ink);
     color: var(--white) !important;
   }
 }

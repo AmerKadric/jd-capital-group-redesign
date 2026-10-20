@@ -15,7 +15,7 @@ router layers smooth in-app navigation on top without changing that.
 
 | Page | File | What's on it |
 |---|---|---|
-| Home | `index.html` | Hero photo carousel, About/What We Do teaser, Why Us, Contact form |
+| Home | `index.html` | Skyline hero, Trusted by, About/What We Do teaser, Selected Work, Why Us, testimonial, FAQ, Contact form |
 | About | `about.html` | Company mission, "Areas of Focus," founder profile (Jesse Dhillon) |
 | Projects | `projects.html` | Overview grid + seven featured case studies (incl. Woodward Sports Network, a past engagement), each with a photo carousel or video, Scope of work, and Results |
 | Clients | `clients.html` | Lady Jane's spotlight + testimonial, Roast coffee family, Mark V Homes (real estate); filter tabs per category |
@@ -44,7 +44,7 @@ JD-Capital-Group-Redesign/
 │   ├── projects.css              Projects-page-only styles (case studies, carousel, video frame, lightbox)
 │   └── clients.css               Clients-page-only styles
 ├── js/
-│   ├── main.js                   Persistent header/nav/back-to-top + homepage hero carousel + contact form
+│   ├── main.js                   Persistent header/nav/back-to-top/guide + homepage contact form
 │   ├── router.js                 Client-side content router (see below)
 │   ├── projects.js               Carousel + lightbox logic for the Projects page
 │   └── clients.js                Filter tabs + clickable client cards
