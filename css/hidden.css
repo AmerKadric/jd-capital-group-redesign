@@ -19,15 +19,6 @@
   --hairline-stroke: 1.1;
 }
 .wwd-figure-art { width: 100%; }
-.wwd-figure figcaption {
-  margin-top: 6px;
-  text-align: center;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gray-mid);
-}
 
 /* Phones: let the figure use the card's side padding so it isn't tiny. */
 @media (max-width: 600px) {
