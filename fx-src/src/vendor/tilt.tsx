@@ -1,4 +1,7 @@
 'use client';
+// From ibelick/motion-primitives (MIT). JD change: the pointer is measured
+// against the element's untransformed parent, not the tilting element itself,
+// whose bounding box moves as it tilts and fed back into the angle (a shake).
 
 import React, { useRef } from 'react';
 import {
@@ -56,7 +59,7 @@ export function Tilt({
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return;
 
-    const rect = ref.current.getBoundingClientRect();
+    const rect = (ref.current.parentElement ?? ref.current).getBoundingClientRect();
     const width = rect.width;
     const height = rect.height;
     const mouseX = e.clientX - rect.left;

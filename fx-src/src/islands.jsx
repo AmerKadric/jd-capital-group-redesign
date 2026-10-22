@@ -69,7 +69,7 @@ function tiltCards() {
     wrap.className = 'fx-tilt';
     card.before(wrap);
     createRoot(wrap).render(
-      <Tilt rotationFactor={6} springOptions={{ stiffness: 260, damping: 26 }} style={{ height: '100%' }}>
+      <Tilt rotationFactor={6} springOptions={{ stiffness: 260, damping: 26 }} style={{ height: '100%', transformStyle: 'flat' }}>
         <Adopt node={card} />
       </Tilt>
     );

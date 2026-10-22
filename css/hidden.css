@@ -49,3 +49,8 @@
   margin-top: 36px;
 }
 @media (max-width: 1024px) { .fx-logo { height: 240px; margin-top: 28px; } }
+/* Inside a tilt, the tilt is the card's movement: no extra lift-and-grow on
+   hover (three stacked transforms made the photo shimmer). The border and
+   shadow still answer, and the photo keeps its slow zoom on its own layer. */
+.fx-tilt .work-card:hover { transform: none; }
+.fx-tilt .work-card-img img { backface-visibility: hidden; will-change: transform; }

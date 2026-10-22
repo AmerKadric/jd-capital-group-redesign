@@ -804,7 +804,10 @@ a { color: inherit; text-decoration: none; }
   color: var(--gold-light);
 }
 .footer-tagline { font-size: 14px; margin: 0; }
-.footer-nav { display: flex; gap: 28px; }
+/* Wraps onto a second row on narrow screens: as one unbroken row it was
+   wider than a phone, which widened every page past the screen. */
+.footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 28px; max-width: 100%; }
+@media (max-width: 480px) { .footer-nav { gap: 10px 20px; } }
 .footer-nav a { font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; color: #9aa5b5; }
 .footer-nav a:hover { color: var(--gold-light); }
 
