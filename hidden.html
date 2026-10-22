@@ -35,6 +35,14 @@
 
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/hidden.css">
+<!-- Hide the headline until its word-by-word reveal is ready (never longer
+     than 2.5s, and not at all for reduced-motion visitors). -->
+<script>
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.documentElement.classList.add('fx-pending');
+  setTimeout(function () { document.documentElement.classList.remove('fx-pending'); }, 2500);
+}
+</script>
 
 </head>
 <body>
@@ -54,7 +62,7 @@
       <a href="/projects">Projects</a>
       <a href="/clients">Clients</a>
       <a href="/services">Services</a>
-      <a href="/#contact" class="nav-cta">Schedule a Consultation</a>
+      <a href="#contact" class="nav-cta">Schedule a Consultation</a>
     </nav>
 
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
@@ -90,7 +98,7 @@
             JD Capital Group partners with founders and executives to build businesses that grow and last.
           </p>
           <div class="hero-actions">
-            <a href="/#contact" class="btn btn-primary">Schedule a Consultation</a>
+            <a href="#contact" class="btn btn-primary">Schedule a Consultation</a>
             <a href="/about" class="btn btn-ghost">About JD Capital Group</a>
           </div>
         </div>
@@ -249,19 +257,19 @@
       <!-- Proof points; each figure also appears on the About or Projects page. -->
       <div class="why-stats">
         <div class="why-stat">
-          <span class="why-stat-value">100+</span>
+          <span class="why-stat-value" data-count="100" data-suffix="+">100+</span>
           <span class="why-stat-label">Locations under Jesse&rsquo;s leadership</span>
         </div>
         <div class="why-stat">
-          <span class="why-stat-value">$1,000<small>/sq ft</small></span>
+          <span class="why-stat-value" data-count="1000" data-prefix="$" data-separator=",">$1,000<small>/sq ft</small></span>
           <span class="why-stat-label">Record-setting vacant land sale in Fort Lauderdale</span>
         </div>
         <div class="why-stat">
-          <span class="why-stat-value">3</span>
+          <span class="why-stat-value" data-count="3">3</span>
           <span class="why-stat-label">Coffee brands founded, with more in development</span>
         </div>
         <div class="why-stat">
-          <span class="why-stat-value">7-figure</span>
+          <span class="why-stat-value" data-count="7" data-suffix="-figure">7-figure</span>
           <span class="why-stat-label">Acquisition of Woodward Sports Network, Detroit&rsquo;s largest digital sports media network, built from day one</span>
         </div>
       </div>
@@ -340,7 +348,7 @@
         <p class="section-eyebrow">Questions</p>
         <h2 class="section-title">Common questions, answered.</h2>
         <p class="lead-text">If you don&rsquo;t see yours here, the fastest answer is a quick conversation.</p>
-        <a href="/#contact" class="btn btn-primary">Schedule a Consultation</a>
+        <a href="#contact" class="btn btn-primary">Schedule a Consultation</a>
       </div>
       <div class="faq-list">
         <details class="faq-item">
@@ -392,6 +400,9 @@
             <p><a href="mailto:jesse@jdcapitalgrp.com">jesse@jdcapitalgrp.com</a></p>
           </div>
         </div>
+
+        <!-- 3D gold JD monogram (React Three Fiber + Drei), loaded on approach. -->
+        <div class="fx-logo" id="fx-logo" role="img" aria-label="The JD Capital Group monogram in gold"></div>
       </div>
 
       <form class="contact-form" id="contactForm" data-access-key="796e38cd-45be-48ca-ada0-9329ae30b5af">
@@ -461,8 +472,8 @@
       <a href="/services">Services</a>
       <a href="/projects">Projects</a>
       <a href="/clients">Clients</a>
-      <a href="/#contact">Contact</a>
-      <a href="/#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+      <a href="#faq">FAQ</a>
       <a href="/privacy">Privacy</a>
     </nav>
     <div class="footer-social">
@@ -489,10 +500,10 @@
       <button type="button" class="guide-close" id="guideClose" aria-label="Close">&times;</button>
     </div>
     <nav class="guide-links" aria-label="Quick help">
-      <a href="/#contact" class="guide-link guide-link--primary"><span>Schedule a consultation</span><span aria-hidden="true">&rarr;</span></a>
+      <a href="#contact" class="guide-link guide-link--primary"><span>Schedule a consultation</span><span aria-hidden="true">&rarr;</span></a>
       <a href="/services#capabilities" class="guide-link"><span>Our services</span><span aria-hidden="true">&rarr;</span></a>
       <a href="/#why-us" class="guide-link"><span>Why work with us</span><span aria-hidden="true">&rarr;</span></a>
-      <a href="/#faq" class="guide-link"><span>Common questions</span><span aria-hidden="true">&rarr;</span></a>
+      <a href="#faq" class="guide-link"><span>Common questions</span><span aria-hidden="true">&rarr;</span></a>
       <a href="/projects#all-projects" class="guide-link"><span>See our projects</span><span aria-hidden="true">&rarr;</span></a>
       <a href="/clients" class="guide-link"><span>Our clients</span><span aria-hidden="true">&rarr;</span></a>
       <a href="/about#founder" class="guide-link"><span>Meet Jesse Dhillon</span><span aria-hidden="true">&rarr;</span></a>
@@ -509,6 +520,6 @@
 
 <script src="js/main.js"></script>
 <script src="js/hidden.js"></script>
-<script src="js/router.js"></script>
+<script type="module" src="js/fx/islands.js"></script>
 </body>
 </html>

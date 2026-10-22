@@ -24,3 +24,28 @@
 @media (max-width: 600px) {
   .wwd-figure { margin: -4px -20px 24px; max-width: none; }
 }
+
+/* ---------- React effects (js/fx/islands.js) ---------- */
+
+/* Hero headline: hidden only until the word-by-word reveal mounts (the
+   inline script in <head> removes this after 2.5s at the latest). */
+.fx-pending .hero-title { visibility: hidden; }
+/* The reveal renders each line as its own span, plus the utility classes
+   Motion Primitives' TextEffect expects from Tailwind, scoped here. */
+.hero-title .fx-line { display: block; }
+.hero-title .inline-block { display: inline-block; }
+.hero-title .whitespace-pre { white-space: pre; }
+.hero-title .sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* Selected Work: each card sits in a tilt wrapper that fills its grid cell. */
+.fx-tilt, .fx-adopt, .fx-adopt > .work-card { height: 100%; }
+
+/* Contact: the 3D gold monogram. */
+.fx-logo {
+  height: 280px;
+  margin-top: 36px;
+}
+@media (max-width: 1024px) { .fx-logo { height: 240px; margin-top: 28px; } }

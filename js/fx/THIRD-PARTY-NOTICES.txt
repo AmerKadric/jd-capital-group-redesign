@@ -1,0 +1,22 @@
+Third-party software in js/fx/ (the /hidden preview effects).
+Source: fx-src/ in this repository.
+
+React, React DOM 19.3.0 - MIT License, Copyright (c) Meta Platforms, Inc. and affiliates.
+Motion 12.43.0 - MIT License, Copyright (c) 2018 Framer B.V.
+three.js 0.186.1 - MIT License, Copyright (c) 2010-2026 three.js authors.
+React Three Fiber 9.8.1 - MIT License, Copyright (c) 2019-2025 Poimandres.
+Drei 10.7.9 - MIT License, Copyright (c) 2020 react-spring.
+
+Motion Primitives (TextEffect, Tilt) - https://github.com/ibelick/motion-primitives
+  MIT License, Copyright (c) Julien Thibeaut (ibelick).
+
+React Bits (CountUp) - https://github.com/DavidHDev/react-bits
+  MIT + Commons Clause License Condition v1.0, Copyright (c) 2026 David Haz.
+  Used as part of this website, as the license permits; not redistributed on its own.
+
+Source Serif 4 (glyphs J and D, converted for the 3D monogram)
+  Copyright 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'.
+  SIL Open Font License, Version 1.1.
+
+The full license texts for MIT-licensed bundles are kept beside each chunk
+(*.LEGAL.txt) where the package provided them.

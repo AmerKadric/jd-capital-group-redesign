@@ -2,8 +2,9 @@
 // Draws the custom "Skyline" line figure (made with hairline-create) into the
 // What We Do card: towers rise toward the cursor. The figure's script
 // (js/vendor/hairline-skyline.js) is loaded on demand, so no other page pays
-// for it. Exposed on window so router.js can re-run it whenever this page's
-// <main> is swapped back in.
+// for it. This page loads without the client-side router (its React effects,
+// js/fx/, need full page loads), so it starts itself and runs the homepage's
+// own content init (the contact form) too.
 let skylineFigure = null;
 let skylineScript = null;
 
@@ -36,4 +37,13 @@ function initHiddenPreview() {
     });
   }).catch(err => console.error('[hidden]', err));
 }
-window.initHiddenPreview = initHiddenPreview;
+
+function initHiddenPage() {
+  if (typeof window.initHomeContent === 'function') window.initHomeContent();
+  initHiddenPreview();
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initHiddenPage);
+} else {
+  initHiddenPage();
+}
