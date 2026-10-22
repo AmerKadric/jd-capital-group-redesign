@@ -5,7 +5,8 @@
  * off with distance, so growth gathers wherever the hand is. Picking reads the
  * towers' rest x, which never moves. At rest the tall round tower carries the
  * bright stroke; under the pointer the bright goes to the nearest tower.
- * The slider is the reach, in towers.
+ * The slider is the reach, in towers. The first time it is on screen, the
+ * city rises from the ground, tower by tower from the left (45ms apart).
  *
  * The pattern: a continuous field (Terrain's), laid out as a skyline.
  */
@@ -14,7 +15,7 @@ const {
   mk, pointer, put, register, disposer, solid,
 } = HL;
 
-const LIFT = 30, TIER = 0.62, PB = 5;
+const LIFT = 30, TIER = 0.62, PB = 5, RISE = 45; // RISE: ms between towers as the city first rises
 // [cx, cy, w, d, h, kind]: "b" a block, "s" a block with a setback, "c" a round tower (w is its radius).
 const CITY = [
   [10, 10, 12, 12, 22, "b"], [30, 10, 14, 12, 46, "s"],
@@ -57,16 +58,17 @@ function mount({ stage, svg, read }, value) {
         parts.push({ ring: r2, inner: i2, f0: TIER, f1: 1 });
       }
     }
-    return { cx, cy, h0, sx: P(cx, cy, 0)[0], parts, sp: spring(h0, { eps: 0.04 }), drawn: NaN, lit: null };
+    // Every tower starts flat; the intro sends each one up in turn.
+    return { cx, cy, h0, sx: P(cx, cy, 0)[0], parts, sp: spring(0.6, { eps: 0.04 }), drawn: NaN, lit: null };
   }).sort((a, b) => a.cx + a.cy - (b.cx + b.cy));
   towers.forEach((t) => t.parts.forEach((p) => { p.el = solid(g); }));
 
   // The read-out numbers towers left to right as they appear.
   const byX = towers.slice().sort((a, b) => a.sx - b.sx);
-  byX.forEach((t, k) => { t.n = String(k + 1).padStart(2, "0"); });
+  byX.forEach((t, k) => { t.n = String(k + 1).padStart(2, "0"); t.at = k * RISE; });
   const SP = (byX[byX.length - 1].sx - byX[0].sx) / (byX.length - 1);
   const crown = towers.reduce((a, b) => (b.h0 > a.h0 ? b : a));
-  let R = value * SP, over = null, lit = crown;
+  let R = value * SP, over = null, lit = crown, clock = 0, rising = true;
 
   function draw(t) {
     const h = Math.max(0.6, t.sp.x), on = t === lit;
@@ -78,14 +80,27 @@ function mount({ stage, svg, read }, value) {
     }
   }
 
+  // The loop sleeps offscreen, so the intro's clock only runs once the
+  // figure is seen: the city rises the first time it comes into view.
   const B = register(stage, (dt) => {
     let m = false;
+    if (rising) {
+      clock += Math.min(dt, 0.05) * 1000;
+      rising = false;
+      for (const t of byX) {
+        if (t.sp.t === 0.6 && clock >= t.at) t.sp.t = t.h0;
+        if (t.sp.t === 0.6) rising = true;
+      }
+      if (rising) m = true;
+    }
     for (const t of towers) { if (stepS(t.sp, dt)) m = true; draw(t); }
     return m;
   });
   bag.add(B.unregister);
+  B.wake();
 
   function retarget() {
+    rising = false; // a hand arriving ends the intro: every tower answers it
     if (over === null) {
       for (const t of towers) t.sp.t = t.h0;
       lit = crown; read.textContent = "rest";
