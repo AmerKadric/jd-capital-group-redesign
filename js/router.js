@@ -46,6 +46,14 @@
       trailingJs: ['js/services.js'],
       inits: ['initServicesPage']
     },
+    // Unlisted preview of homepage changes (/hidden); same content init as
+    // the homepage, plus the preview's own additions.
+    'hidden.html': {
+      css: ['css/hidden.css'],
+      js: [],
+      trailingJs: ['js/hidden.js'],
+      inits: ['initHomeContent', 'initHiddenPreview']
+    },
     'privacy.html': {
       css: ['css/about.css'], // reuses the About hero styles
       js: [],
@@ -322,7 +330,8 @@
 
     // Once this page has fully loaded, quietly warm the other pages (HTML +
     // CSS/JS only, all small) so even a first click is instant.
-    const warm = () => Object.keys(PAGES).forEach(prefetch);
+    // (The unlisted /hidden preview is skipped; nothing links to it.)
+    const warm = () => Object.keys(PAGES).filter(k => k !== 'hidden.html').forEach(prefetch);
     const whenIdle = () => ('requestIdleCallback' in window ? requestIdleCallback(warm) : setTimeout(warm, 1500));
     if (document.readyState === 'complete') whenIdle();
     else window.addEventListener('load', whenIdle, { once: true });

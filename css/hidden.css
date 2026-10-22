@@ -1,0 +1,33 @@
+/* =========================================================
+   JD CAPITAL GROUP — /hidden HOMEPAGE PREVIEW
+   Styles for additions being previewed before they go on the real
+   homepage. Everything else on the page uses style.css unchanged.
+   ========================================================= */
+
+/* Interactive line figure at the top of the What We Do card. The figure
+   draws filled plates, so --hairline-plate matches the card's fill. */
+.wwd-figure {
+  margin: -8px auto 28px;
+  max-width: 420px;
+  --hairline-plate: #f4f5f7;   /* = var(--soft-gray), the card fill */
+  --hairline-hi: #8f6d2c;      /* lit parts: the brand's deeper gold */
+  --hairline-edge: #2b2724;    /* silhouettes: warm near-black */
+  --hairline-mid: #a3a7ae;     /* other strokes */
+  --hairline-lo: #d9dbe0;      /* what recedes */
+  --hairline-stroke: 1;
+}
+.wwd-figure-art { width: 100%; }
+.wwd-figure figcaption {
+  margin-top: 6px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray-mid);
+}
+
+/* Phones: let the figure use the card's side padding so it isn't tiny. */
+@media (max-width: 600px) {
+  .wwd-figure { margin: -4px -20px 24px; max-width: none; }
+}

@@ -22,6 +22,7 @@ router layers smooth in-app navigation on top without changing that.
 | Services | `services.html` | Capability explorer (nine services; list + panel on desktop, tap-to-open on mobile), How We Work steps, closing call to action. In the header nav in place of Why Us |
 | Privacy | `privacy.html` | Privacy policy (form data, Web3Forms, Vercel, Google Maps embed); linked from every footer |
 | Not found | `404.html` | Branded 404 (Vercel serves it for any unknown URL); links home, to the consultation form, and to the main pages. All paths are root-absolute since it can render at any depth. |
+| Homepage preview | `hidden.html` | Unlisted, `noindex` copy of the homepage at `/hidden` for trying changes before they go on the real homepage. Currently adds an interactive line figure (hairline "Settle", MIT, vendored in `js/vendor/`) to the What We Do card; styles in `css/hidden.css`, script in `js/hidden.js`. |
 
 ### Projects page — current case studies
 
