@@ -6,12 +6,20 @@
 //   Why Us stats    React Bits CountUp (MIT + Commons Clause, used as part of this site)
 //   Selected Work   Motion Primitives Tilt (MIT)          cards tilt toward the cursor
 //   Contact         React Three Fiber + Drei (MIT)        3D gold JD monogram, lazy-loaded
+//   Why Us points   Motion Primitives InView (MIT)        slide up the first time they're reached
+//   Testimonial     React Bits ScrollReveal (+ GSAP)      words darken as you scroll through the quote
+//   Buttons         Motion Primitives Magnetic (MIT)      lean toward the cursor (desktop)
+//   FAQ             Motion Primitives Accordion (MIT)     answers slide open and closed
 import { useLayoutEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import { flushSync } from 'react-dom';
 import { TextEffect } from './vendor/text-effect.tsx';
 import { Tilt } from './vendor/tilt.tsx';
 import CountUp from './vendor/CountUp.jsx';
+import { InView } from './vendor/in-view.tsx';
+import { Magnetic } from './vendor/magnetic.tsx';
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './vendor/accordion.tsx';
+import ScrollReveal from './vendor/ScrollReveal.jsx';
 
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -89,6 +97,80 @@ function logo() {
   io.observe(el);
 }
 
+function whyRows() {
+  if (reduced) return;
+  document.querySelectorAll('.why-list > .why-row').forEach((row, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'fx-why';
+    row.before(wrap);
+    // Rows sit two to a line: the second of each pair follows a beat later.
+    createRoot(wrap).render(
+      <InView once viewOptions={{ once: true, margin: '0px 0px -12% 0px' }}
+        variants={{ hidden: { opacity: 0, y: 28 }, visible: { opacity: 1, y: 0 } }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: (i % 2) * 0.12 }}>
+        <Adopt node={row} />
+      </InView>
+    );
+  });
+}
+
+function testimonial() {
+  const p = document.querySelector('.home-testimonial blockquote p');
+  if (!p) return;
+  const text = p.textContent.replace(/\s+/g, ' ').trim();
+  const holder = document.createElement('div');
+  p.replaceWith(holder);
+  // Reduced motion is handled inside: the quote is simply shown.
+  createRoot(holder).render(
+    <ScrollReveal as="p" baseOpacity={0.16} enableBlur blurStrength={3} baseRotation={0}
+      wordAnimationEnd="center center">
+      {text}
+    </ScrollReveal>
+  );
+}
+
+function magnets() {
+  if (reduced || !finePointer) return;
+  document.querySelectorAll('main .btn:not([type="submit"])').forEach(btn => {
+    const wrap = document.createElement('span');
+    wrap.className = 'fx-magnet';
+    btn.before(wrap);
+    // 'global': it starts leaning as the cursor approaches, not only once it's on the button.
+    createRoot(wrap).render(
+      <Magnetic actionArea="global" intensity={0.45} range={150} springOptions={{ stiffness: 180, damping: 16, mass: 0.4 }}>
+        <Adopt node={btn} />
+      </Magnetic>
+    );
+  });
+}
+
+function faq() {
+  const list = document.querySelector('.faq-list');
+  if (!list) return;
+  const items = [...list.querySelectorAll('details.faq-item')].map(d => ({
+    q: d.querySelector('summary span').textContent.trim(),
+    a: d.querySelector('p').textContent.trim(),
+  }));
+  if (!items.length) return;
+  list.replaceChildren();
+  createRoot(list).render(
+    <Accordion className="fx-faq"
+      transition={reduced ? { duration: 0 } : { duration: 0.32, ease: [0.22, 1, 0.36, 1] }}>
+      {items.map((it, i) => (
+        <AccordionItem key={i} value={i} className="faq-item">
+          <AccordionTrigger className="faq-trigger">
+            <span>{it.q}</span>
+            <span className="faq-icon" aria-hidden="true" />
+          </AccordionTrigger>
+          <AccordionContent>
+            <p>{it.a}</p>
+          </AccordionContent>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  );
+}
+
 function run(name, fn) {
   try { fn(); } catch (err) { console.error('[fx] ' + name + ' failed:', err); }
 }
@@ -96,4 +178,8 @@ run('headline', headline);
 run('stats', stats);
 run('tilt', tiltCards);
 run('logo', logo);
+run('why', whyRows);
+run('testimonial', testimonial);
+run('magnets', magnets);
+run('faq', faq);
 document.documentElement.classList.remove('fx-pending');

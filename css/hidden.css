@@ -61,3 +61,48 @@
    shadow still answer, and the photo keeps its slow zoom on its own layer. */
 .fx-tilt .work-card:hover { transform: none; }
 .fx-tilt .work-card-img img { backface-visibility: hidden; will-change: transform; }
+
+/* Why Us: each point sits in a slide-in wrapper that fills its grid cell. */
+.fx-why, .fx-why > div { height: 100%; }
+
+/* Testimonial: the quote is split into words that darken as you scroll. */
+.home-testimonial .scroll-reveal { margin: 0; }
+.home-testimonial .scroll-reveal-text { display: block; }
+.home-testimonial .scroll-reveal-word,
+.home-testimonial .scroll-reveal-piece { display: inline-block; }
+
+/* Buttons: the magnetic wrapper shrinks to the button it carries. */
+.fx-magnet { display: inline-block; }
+.fx-magnet .fx-adopt { height: auto; }
+
+/* FAQ: the accordion renders buttons in place of <summary>, styled the same,
+   plus the two utility classes the component expects from Tailwind. */
+.fx-faq.relative { position: relative; }
+.fx-faq .overflow-hidden { overflow: hidden; }
+.fx-faq .faq-trigger {
+  all: unset;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 22px 26px;
+  cursor: pointer;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.35;
+  color: var(--navy);
+  transition: color var(--transition);
+}
+.fx-faq .faq-trigger:hover { color: var(--gold); }
+.fx-faq .faq-trigger:focus-visible { outline: 2px solid var(--gold); outline-offset: -4px; }
+.fx-faq .faq-item[data-expanded] .faq-icon { background: var(--gold); border-color: var(--gold); }
+.fx-faq .faq-item[data-expanded] .faq-icon::before,
+.fx-faq .faq-item[data-expanded] .faq-icon::after { background: var(--white); }
+.fx-faq .faq-item[data-expanded] .faq-icon::after { transform: translate(-50%, -50%) rotate(0deg); }
+.fx-faq .faq-item p { animation: none; }
+@media (max-width: 560px) {
+  .fx-faq .faq-trigger { padding: 18px 18px; font-size: 16.5px; }
+}
