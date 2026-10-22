@@ -43,12 +43,19 @@
 /* Selected Work: each card sits in a tilt wrapper that fills its grid cell. */
 .fx-tilt, .fx-adopt, .fx-adopt > .work-card { height: 100%; }
 
-/* Contact: the 3D gold monogram. */
+/* Contact: the 3D gold monogram, floated beside the heading and intro so
+   the left column stays the height of the form (no stretched form card).
+   The details row clears it. On phones it gets its own row. */
 .fx-logo {
-  height: 280px;
-  margin-top: 36px;
+  float: right;
+  width: 210px;
+  height: 210px;
+  margin: -12px -16px 8px 16px;
 }
-@media (max-width: 1024px) { .fx-logo { height: 240px; margin-top: 28px; } }
+.contact-copy .contact-details { clear: both; }
+@media (max-width: 600px) {
+  .fx-logo { float: none; width: auto; height: 200px; margin: 0 0 8px; }
+}
 /* Inside a tilt, the tilt is the card's movement: no extra lift-and-grow on
    hover (three stacked transforms made the photo shimmer). The border and
    shadow still answer, and the photo keeps its slow zoom on its own layer. */
