@@ -1,26 +1,39 @@
 // JD Capital Group — /hidden homepage preview only.
-// Draws the hairline "Settle" figure into the What We Do card. The figure
-// module (js/vendor/hairline-settle.js) is loaded on demand, so no other
-// page pays for it. Exposed on window so router.js can re-run it whenever
-// this page's <main> is swapped back in.
-let settleFigure = null;
+// Draws the custom "Skyline" line figure (made with hairline-create) into the
+// What We Do card: towers rise toward the cursor. The figure's script
+// (js/vendor/hairline-skyline.js) is loaded on demand, so no other page pays
+// for it. Exposed on window so router.js can re-run it whenever this page's
+// <main> is swapped back in.
+let skylineFigure = null;
+let skylineScript = null;
+
+function loadSkyline() {
+  if (!skylineScript) {
+    skylineScript = new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = 'js/vendor/hairline-skyline.js';
+      s.onload = resolve;
+      s.onerror = () => { skylineScript = null; reject(new Error('Failed to load the skyline figure')); };
+      document.body.appendChild(s);
+    });
+  }
+  return skylineScript;
+}
 
 function initHiddenPreview() {
-  if (settleFigure) { settleFigure.destroy(); settleFigure = null; }
+  if (skylineFigure) { skylineFigure.destroy(); skylineFigure = null; }
 
-  const el = document.getElementById('settleFigure');
+  const el = document.getElementById('skylineFigure');
   if (!el) return;
 
-  import('./vendor/hairline-settle.js').then(({ settle }) => {
+  loadSkyline().then(() => {
     if (!el.isConnected) return; // navigated away before it loaded
-    settleFigure = settle(el, {
-      intensity: 0.6,
-      theme: 'light',
-      // Walks through its answer on its own until the cursor arrives, so
-      // touch screens see it too. Rests for reduced-motion visitors.
+    skylineFigure = window.mountSkyline(el, {
+      // Walks the skyline on its own until the cursor arrives, so touch
+      // screens see it too. Skipped for reduced-motion visitors.
       play: true,
-      label: 'Twelve scattered tiles sliding into an ordered structure around a central hub',
+      label: 'A line drawing of a riverfront city skyline whose towers rise toward the cursor',
     });
-  }).catch(err => console.error('[hidden] figure failed to load:', err));
+  }).catch(err => console.error('[hidden]', err));
 }
 window.initHiddenPreview = initHiddenPreview;

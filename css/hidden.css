@@ -4,17 +4,19 @@
    homepage. Everything else on the page uses style.css unchanged.
    ========================================================= */
 
-/* Interactive line figure at the top of the What We Do card. The figure
+/* Interactive "Skyline" line figure at the top of the What We Do card. It
    draws filled plates, so --hairline-plate matches the card's fill. */
 .wwd-figure {
   margin: -8px auto 28px;
   max-width: 420px;
   --hairline-plate: #f4f5f7;   /* = var(--soft-gray), the card fill */
-  --hairline-hi: #8f6d2c;      /* lit parts: the brand's deeper gold */
-  --hairline-edge: #2b2724;    /* silhouettes: warm near-black */
-  --hairline-mid: #a3a7ae;     /* other strokes */
-  --hairline-lo: #d9dbe0;      /* what recedes */
-  --hairline-stroke: 1;
+  /* Like the package's own palette: the lit tower is the strongest line,
+     everything else steps down from it. */
+  --hairline-hi: #8f6d2c;      /* the lit tower: the brand's deeper gold */
+  --hairline-edge: #847e76;    /* silhouettes: warm gray */
+  --hairline-mid: #b5b7bc;     /* other strokes */
+  --hairline-lo: #e1e2e5;      /* what recedes */
+  --hairline-stroke: 1.1;
 }
 .wwd-figure-art { width: 100%; }
 .wwd-figure figcaption {
