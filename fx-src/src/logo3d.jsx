@@ -53,9 +53,13 @@ function Mark({ still }) {
   const group = useRef(null);
   useFrame((_, dt) => {
     if (still || !group.current) return;
-    const k = 1 - Math.exp(-dt * 3); // eased follow
-    group.current.rotation.y = MathUtils.lerp(group.current.rotation.y, pointer.x * 0.45, k);
-    group.current.rotation.x = MathUtils.lerp(group.current.rotation.x, pointer.y * 0.25, k);
+    const k = 1 - Math.exp(-dt * 4); // eased follow
+    const g = group.current;
+    g.rotation.y = MathUtils.lerp(g.rotation.y, pointer.x * 0.7, k);
+    g.rotation.x = MathUtils.lerp(g.rotation.x, pointer.y * 0.4, k);
+    // A small drift toward the cursor as well as the turn.
+    g.position.x = MathUtils.lerp(g.position.x, pointer.x * 0.35, k);
+    g.position.y = MathUtils.lerp(g.position.y, -pointer.y * 0.2, k);
   });
   const body = (
     <group ref={group}>
@@ -69,7 +73,7 @@ function Mark({ still }) {
       </Center>
     </group>
   );
-  return still ? body : <Float speed={1.3} rotationIntensity={0.25} floatIntensity={0.5}>{body}</Float>;
+  return still ? body : <Float speed={1.6} rotationIntensity={0.5} floatIntensity={0.9}>{body}</Float>;
 }
 
 function Scene({ el, reduced }) {
@@ -88,13 +92,14 @@ function Scene({ el, reduced }) {
       frameloop={reduced ? 'demand' : visible ? 'always' : 'never'}
       aria-hidden="true"
     >
-      <ambientLight intensity={0.35} />
-      <directionalLight position={[3, 4, 5]} intensity={1.2} />
+      <ambientLight intensity={0.7} />
+      <directionalLight position={[3, 4, 5]} intensity={1.6} />
+      <directionalLight position={[-4, -1, 3]} intensity={0.8} />
       <Mark still={reduced} />
       <Environment resolution={256} frames={1}>
         <Lightformer form="rect" intensity={3} position={[0, 4, 3]} scale={[8, 2, 1]} />
-        <Lightformer form="rect" intensity={1.5} position={[-5, 0, 2]} rotation-y={Math.PI / 2} scale={[6, 3, 1]} />
-        <Lightformer form="rect" intensity={1.2} position={[5, -1, 2]} rotation-y={-Math.PI / 2} scale={[6, 3, 1]} />
+        <Lightformer form="rect" intensity={2.5} position={[-5, 0, 2]} rotation-y={Math.PI / 2} scale={[6, 3, 1]} />
+        <Lightformer form="rect" intensity={2.5} position={[5, -1, 2]} rotation-y={-Math.PI / 2} scale={[6, 3, 1]} />
         <Lightformer form="ring" intensity={2} position={[0, 0, 6]} scale={3} />
       </Environment>
     </Canvas>
